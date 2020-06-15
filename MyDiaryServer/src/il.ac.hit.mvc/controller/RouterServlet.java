@@ -13,15 +13,11 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@WebServlet(name="/controller/*",urlPatterns = {"/controller/*"})
+@WebServlet(name="/controller/*", urlPatterns = {"/controller/*"})
 public class RouterServlet extends HttpServlet {
-    public  RouterServlet()
-    {
+    public  RouterServlet() {
         super();
     }
-
-
-
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,8 +50,6 @@ public class RouterServlet extends HttpServlet {
         out.flush();
 
 
-
-
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -70,12 +64,9 @@ public class RouterServlet extends HttpServlet {
             //problem with the data base
             e.printStackTrace();
         }
-
-
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         doGet(request,response);
-
     }
 }

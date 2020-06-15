@@ -9,36 +9,26 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class AbstractController {
     public void about(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException {//TODO
-         };
-    public void contact(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException{//TODO
-         };
-
-
-
-    //DAO Usage
-    public void createnewuser(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException
-    {
-
-
-
-
-
-
-    };
-
-    public void insert(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException{
-
-
-
-
-
-    };
-    public void delete(HttpServletRequest request, HttpServletRequest response) throws MVCException, DAOException
-    {
 
     }
-    private UserDetails extractUserDetailsFromRequest(HttpServletRequest request)
-    {
+    public void contact(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException{//TODO
+
+    }
+
+    //DAO Usage
+    public void createnewuser(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException {
+
+    }
+
+    public void insert(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException {
+
+    }
+
+    public void delete(HttpServletRequest request, HttpServletRequest response) throws MVCException, DAOException {
+
+    }
+
+    private UserDetails extractUserDetailsFromRequest(HttpServletRequest request) {
         UserDetails userDetails=new UserDetails(request.getParameter("userEmail"),request.getParameter("userPassword"));
         return userDetails;
     }

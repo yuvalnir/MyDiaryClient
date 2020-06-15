@@ -36,25 +36,15 @@ public class Event {
 
     public void setNote(String note) { Note = note; }
 
-    public String getTitle() {
-        return Title;
-    }
+    public String getTitle() { return Title; }
 
     public void setTitle(String title) { Title = title; }
 
-    public int getId() {
-        return Id;
-    }
+    public int getId() { return Id; }
 
-    public void setId(int id) {
-        Id = id;
-    }
+    public void setId(int id) { Id = id; }
 
-    public java.util.Date getDate() {
-        return Date;
-    }
+    public java.util.Date getDate() { return Date; }
 
-    public void setDate(java.util.Date date) {
-        Date = date;
-    }
+    public void setDate(java.util.Date date) { Date = date; }
 }

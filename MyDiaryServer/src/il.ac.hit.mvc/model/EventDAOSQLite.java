@@ -14,12 +14,12 @@ public class EventDAOSQLite implements IEventDAO {
 
     @Override
     public void deleteEvent(UserDetails userDetails, Event item) throws MVCException {
-//TODO
+        //TODO
     }
 
     @Override
     public void deleteEvents(UserDetails userDetails, List<Event> eventsList) throws MVCException {
-//TODO
+        //TODO
     }
 
     @Override
