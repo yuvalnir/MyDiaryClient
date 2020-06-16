@@ -20,7 +20,7 @@ public class Event {
 
     }
     //overLoading
-    public Event(String email, String title, String location, Double timeStart, Double timeEnd, Integer id, java.util.Date date, String note) {
+    public Event(String email, String title, String location, Double timeStart, Double timeEnd, int id, java.util.Date date, String note) {
         this.title = title;
         this.location = location;
         this.timeStart = timeStart;
