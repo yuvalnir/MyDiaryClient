@@ -1,6 +1,6 @@
 package il.ac.hit.mvc.controller;
 
-import il.ac.hit.mvc.Utilities.UserDetails;
+import il.ac.hit.mvc.utils.UserDetails;
 import il.ac.hit.mvc.model.DAOException;
 
 import javax.jws.soap.SOAPBinding;

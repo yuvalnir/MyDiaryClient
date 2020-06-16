@@ -1,34 +1,37 @@
-package il.ac.hit.mvc.Utilities;
+package il.ac.hit.mvc.utils;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
-@Entity
+
 public class Event {
     private String title;
     private String location;
-    private Double timeStart;
-    private Double timeEnd;
+    private Double starts;
+    private Double ends;
     private int id;
     private Date date;
     private String note;
     private String email;
 
     //by default while working with hibernate you must have a public cot'r without param's
-    public Event()
-    {
+    public Event() {
 
     }
+
     //overLoading
+
+
     public Event(String email, String title, String location, Double timeStart, Double timeEnd, int id, java.util.Date date, String note) {
         this.title = title;
         this.location = location;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
+        this.starts = timeStart;
+        this.ends = timeEnd;
         this.id = id;
         this.date = date;
         this.note = note;
-        this.email=email;
+        this.email = email;
     }
 
     public String getTitle() {
@@ -47,23 +50,22 @@ public class Event {
         this.location = location;
     }
 
-    public Double getTimeStart() {
-        return timeStart;
+    public Double getStarts() {
+        return starts;
     }
 
-    public void setTimeStart(Double timeStart) {
-        this.timeStart = timeStart;
+    public void setStarts(Double starts) {
+        this.starts = starts;
     }
 
-    public Double getTimeEnd() {
-        return timeEnd;
+    public Double getEnds() {
+        return ends;
     }
 
-    public void setTimeEnd(Double timeEnd) {
-        this.timeEnd = timeEnd;
+    public void setEnds(Double ends) {
+        this.ends = ends;
     }
 
-    @Id
     public int getId() {
         return id;
     }
@@ -96,3 +98,4 @@ public class Event {
         this.email = email;
     }
 }
+

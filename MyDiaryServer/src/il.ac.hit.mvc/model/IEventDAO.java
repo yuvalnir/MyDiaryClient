@@ -1,6 +1,8 @@
 package il.ac.hit.mvc.model;
-import il.ac.hit.mvc.Utilities.Event;
-import il.ac.hit.mvc.Utilities.UserDetails;
+
+
+import il.ac.hit.mvc.utils.Event;
+import il.ac.hit.mvc.utils.UserDetails;
 
 import java.util.List;
 public interface IEventDAO {
