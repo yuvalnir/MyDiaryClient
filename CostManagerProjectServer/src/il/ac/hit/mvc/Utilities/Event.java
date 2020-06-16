@@ -1,60 +1,98 @@
 package il.ac.hit.mvc.Utilities;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Entity
 public class Event {
-    private String Title;
-    private String Location;
-    private Double TimeStart;
-    private Double TimeEnd;
-    private int Id;
-    private Date Date;
-    private String Note;
+    private String title;
+    private String location;
+    private Double timeStart;
+    private Double timeEnd;
+    private int id;
+    private Date date;
+    private String note;
+    private String email;
 
-    public Event(String title, String location, Double timeStart, Double timeEnd, int id, java.util.Date date, String note) {
-        Title = title;
-        Location = location;
-        TimeStart = timeStart;
-        TimeEnd = timeEnd;
-        Id = id;
-        Date = date;
-        Note = note;
+    //by default while working with hibernate you must have a public cot'r without param's
+    public Event()
+    {
+
     }
-
-    public String getLocation() { return Location; }
-
-    public void setLocation(String location) { Location = location; }
-
-    public Double getTimeStart() { return TimeStart; }
-
-    public void setTimeStart(Double timeStart) { TimeStart = timeStart; }
-
-    public Double getTimeEnd() { return TimeEnd; }
-
-    public void setTimeEnd(Double timeEnd) { TimeEnd = timeEnd; }
-
-    public String getNote() { return Note; }
-
-    public void setNote(String note) { Note = note; }
+    //overLoading
+    public Event(String email, String title, String location, Double timeStart, Double timeEnd, Integer id, java.util.Date date, String note) {
+        this.title = title;
+        this.location = location;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.id = id;
+        this.date = date;
+        this.note = note;
+        this.email=email;
+    }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
-    public void setTitle(String title) { Title = title; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Double getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(Double timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public Double getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(Double timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    @Id
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    public java.util.Date getDate() {
-        return Date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate(java.util.Date date) {
-        Date = date;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

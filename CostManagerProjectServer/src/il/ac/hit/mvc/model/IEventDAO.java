@@ -10,6 +10,8 @@ public interface IEventDAO {
     Event getEvent(UserDetails userDetails, int id) throws DAOException;
     List<Event> getEvents(UserDetails userDetails) throws DAOException;
     Boolean createNewUser(UserDetails userDetails)throws DAOException;
-    boolean userVerification(UserDetails userDetails) throws DAOException;
+    Boolean deleteUser(UserDetails userDetails)throws DAOException;
+
+   boolean userVerification(UserDetails userDetails) throws DAOException;
 
 }
