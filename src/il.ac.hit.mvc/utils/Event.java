@@ -1,9 +1,7 @@
 package il.ac.hit.mvc.utils;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
 
+import java.io.*;
+import java.util.Date;
 
 public class Event {
     private String title;
@@ -21,8 +19,6 @@ public class Event {
     }
 
     //overLoading
-
-
     public Event(String email, String title, String location, Double timeStart, Double timeEnd, int id, java.util.Date date, String note) {
         this.title = title;
         this.location = location;

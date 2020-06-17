@@ -1,26 +1,20 @@
 package il.ac.hit.mvc.utils;
 
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
-public class UserDetails {
-    private String emil;
+public class User {
+    private String email;
     private String password;
 
 
     //by default while working with hibernate you must have a public cot'r without param's
-    public UserDetails() {
+    public User() {
 
     }
 
-    public UserDetails(String email, String password) {
+    public User(String email, String password) {
         this.emil = email;
         this.password = password;
     }
 
-    @Id
     public String getEmil() {
         return emil;
     }

@@ -1,19 +1,17 @@
 package il.ac.hit.mvc.model;
 
-
 import il.ac.hit.mvc.utils.Event;
-import il.ac.hit.mvc.utils.UserDetails;
-
+import il.ac.hit.mvc.utils.User;
 import java.util.List;
+
 public interface IEventDAO {
-    void insertEvent(UserDetails userDetails, Event item) throws DAOException;
-    void deleteEvent(UserDetails userDetails, Event item) throws DAOException;
-    void deleteEvents(UserDetails userDetails, List<Event> eventsList) throws DAOException;
-    Event getEvent(UserDetails userDetails, int id) throws DAOException;
-    List<Event> getEvents(UserDetails userDetails) throws DAOException;
-    Boolean createNewUser(UserDetails userDetails)throws DAOException;
-    Boolean deleteUser(UserDetails userDetails)throws DAOException;
 
-   boolean userVerification(UserDetails userDetails) throws DAOException;
-
+    void insertEvent(User user, Event item) throws MVCException;
+    void deleteEvent(User user, Event item) throws MVCException;
+    void deleteEvents(User user, List<Event> eventsList) throws MVCException;
+    Event getEvent(User user, int id) throws MVCException;
+    List<Event> getEvents(User user) throws MVCException;
+    boolean createNewUser(User user)throws MVCException;
+    boolean deleteUser(User user)throws MVCException;
+    boolean userVerification(User user) throws MVCException;
 }

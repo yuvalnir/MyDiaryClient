@@ -14,37 +14,38 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 @WebServlet(name="/controller/*", urlPatterns = {"/controller/*"})
+
 public class RouterServlet extends HttpServlet {
+
     public  RouterServlet() {
         super();
     }
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        String URI=request.getRequestURI();
+        String URI = request.getRequestURI();
         String[] splitedURL=URI.split("/");
         try {
 
         // delete it at the end..used for debugging
-        PrintWriter out=response.getWriter();
+        PrintWriter out = response.getWriter();
 
         //**/CostManagerProjectServer_war_exploded/controller/(controllerType)user/action/...
         //                               1     /        2 /              3     /4...
-        String controller=splitedURL[3];
-        String action=splitedURL[4];
+        String controller = splitedURL[3];
+        String action = splitedURL[4];
 
         out.println(URI);
         out.flush();
 
         //getting a full qualified inorder to use reflection and call the right controller
-        String temp=(controller+"Controller");
-        String controllerClassName= Settings.CONTROLLERS_PACKAGE+"."+temp.substring(0,1).toUpperCase()+temp.substring(1);
+        String temp = (controller+"Controller");
+        String controllerClassName = Settings.CONTROLLERS_PACKAGE+"."+temp.substring(0,1).toUpperCase()+temp.substring(1);
 
 
-        Class controllerClass=Class.forName(controllerClassName);
+        Class controllerClass = Class.forName(controllerClassName);
 
-        Method controllerMethod=controllerClass.getMethod(action,HttpServletRequest.class,HttpServletResponse.class);
+        Method controllerMethod = controllerClass.getMethod(action,HttpServletRequest.class,HttpServletResponse.class);
         controllerMethod.invoke(controllerClass,request,response);
         out.println("</br>"+controllerClassName);
         out.flush();
@@ -53,13 +54,11 @@ public class RouterServlet extends HttpServlet {
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        catch (MVCException e)
-        {
+        catch (MVCException e) {
             //TODO needs to direct to an exception page
             e.printStackTrace();
         }
-        catch (DAOException e)
-        {
+        catch (DAOException e) {
             //TODO needs to direct to an exception page
             //problem with the data base
             e.printStackTrace();

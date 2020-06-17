@@ -1,22 +1,14 @@
 package il.ac.hit.mvc.controller;
 
-import il.ac.hit.mvc.utils.UserDetails;
+import il.ac.hit.mvc.utils.User;
 import il.ac.hit.mvc.model.DAOException;
-
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public abstract class AbstractController {
-    public void about(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException {//TODO
-
-    }
-    public void contact(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException{//TODO
-
-    }
 
     //DAO Usage
-    public void createnewuser(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException {
+    public void creatNewUser(HttpServletRequest request, HttpServletResponse response) throws MVCException, DAOException {
 
     }
 
@@ -28,9 +20,9 @@ public abstract class AbstractController {
 
     }
 
-    private UserDetails extractUserDetailsFromRequest(HttpServletRequest request) {
-        UserDetails userDetails=new UserDetails(request.getParameter("userEmail"),request.getParameter("userPassword"));
-        return userDetails;
+    private User extractUserDetailsFromRequest(HttpServletRequest request) {
+        User user = new User(request.getParameter("userEmail"),request.getParameter("userPassword"));
+        return user;
     }
 
 //TODO needs to implement all the methods in here because the admin and the user could use it
