@@ -1,25 +1,37 @@
 package il.ac.hit.mvc.utils;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.*;
+import java.sql.Time;
 import java.util.Date;
 
+
 public class Event {
+    private long id;
+    private String email;
     private String title;
     private String location;
-    private Double starts;
-    private Double ends;
-    private int id;
+    private Time starts;
+    private Time ends;
     private Date date;
     private String note;
-    private String email;
 
     //by default while working with hibernate you must have a public cot'r without param's
     public Event() {
 
     }
 
+/*    @Override
+    public String toString() {
+        return  "Event ID: "+id+ "Email: "+email+"Title: "+title+"Location: "+location+"time starts: "+starts.toString()+"time it ends: "+ends.toString()
+         +"Date: "+ date.toString()+"Note: "+note;
+    }*/
+
     //overLoading
-    public Event(String email, String title, String location, Double timeStart, Double timeEnd, int id, java.util.Date date, String note) {
+    public Event(String email, String title, String location, Time timeStart, Time timeEnd, long id, java.util.Date date, String note) {
         this.title = title;
         this.location = location;
         this.starts = timeStart;
@@ -46,27 +58,27 @@ public class Event {
         this.location = location;
     }
 
-    public Double getStarts() {
+    public Time getStarts() {
         return starts;
     }
 
-    public void setStarts(Double starts) {
+    public void setStarts(Time starts) {
         this.starts = starts;
     }
 
-    public Double getEnds() {
+    public Time getEnds() {
         return ends;
     }
 
-    public void setEnds(Double ends) {
+    public void setEnds(Time ends) {
         this.ends = ends;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

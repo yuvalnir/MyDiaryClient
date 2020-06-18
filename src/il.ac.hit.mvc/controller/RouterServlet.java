@@ -54,7 +54,7 @@ public class RouterServlet extends HttpServlet {
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        catch (MVCException e) {
+/*        catch (MVCException e) {
             //TODO needs to direct to an exception page
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class RouterServlet extends HttpServlet {
             //TODO needs to direct to an exception page
             //problem with the data base
             e.printStackTrace();
-        }
+        }*/
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
