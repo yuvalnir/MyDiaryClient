@@ -38,4 +38,14 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString()
+    {
+        String retStr=
+                "\n User Email: "+ getEmail()
+                +"\n User Password: "+getPassword();
+        return retStr;
+
+    }
 }

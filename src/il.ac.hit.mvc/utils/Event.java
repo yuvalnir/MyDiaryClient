@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.*;
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 
 public class Event {
@@ -31,7 +31,8 @@ public class Event {
     }*/
 
     //overLoading
-    public Event(String email, String title, String location, Time timeStart, Time timeEnd, long id, java.util.Date date, String note) {
+    public Event(String email, String title, String location, Time timeStart, Time timeEnd, long id, java.sql.Date date, String note) {
+        this.email = email;
         this.title = title;
         this.location = location;
         this.starts = timeStart;
@@ -39,7 +40,7 @@ public class Event {
         this.id = id;
         this.date = date;
         this.note = note;
-        this.email = email;
+
     }
 
     public String getTitle() {
@@ -104,6 +105,20 @@ public class Event {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        String retStr=
+                "Email: "+getEmail()+" "
+                +"Title: "+getTitle()+" "
+                +" Location: "+getLocation()+" "
+                +" Time starts: "+getStarts().toString()+" "
+                +" Time ends: "+getEnds().toString()+" "
+                +" ID: "+getId()+" "
+                +" Date: "+getDate().toString()+" "
+                +" Note: "+note+" ";
+        return retStr;
     }
 }
 

@@ -37,7 +37,7 @@ public class EventDAOSQHibernate implements IEventDAO {
         try {
             session = factory.openSession();
             session.beginTransaction();
-            session.saveOrUpdate(event);
+            session.save(event);
             session.getTransaction().commit();
         }
         catch (HibernateException e)
@@ -179,6 +179,7 @@ public class EventDAOSQHibernate implements IEventDAO {
         if(userVerification(user))
         {
             return false;
+            // aka user allready exists
         }
         else {
             try {
@@ -206,22 +207,26 @@ public class EventDAOSQHibernate implements IEventDAO {
 
         // checks if user exists, if he does true, if not false, exception in any other case
         Session session = null;
-        List list=null;
-        Boolean userExists=false;
+        List<User> list=null;
+
         try {
             session = factory.openSession();
             session.beginTransaction();
-            list = session.createQuery("from User where email = " + user.getEmail()+" AND password = "+user.getPassword()).list();
-            if (!list.isEmpty())
+            list = session.createQuery("from User ").list();
+            if(!list.isEmpty())
             {
-                userExists=true;
+                for (User tempUser:list) {
+                    if(tempUser.getEmail()==user.getEmail() && tempUser.getPassword()==user.getPassword())
+                    {
+                        return true;
+                    }
+                }
             }
-            return userExists;
-
+            return false;
         }
         catch (HibernateException e) {
             e.printStackTrace();
-            throw new DAOException("couldn't verify user",e);
+            throw new DAOException("at DAO: couldn't verify user",e);
 
         } finally {
             session.close();
