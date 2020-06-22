@@ -1,34 +1,26 @@
 package il.ac.hit.mvc.utils;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.io.*;
-
-
 public class User {
-
-
     private String email;
     private String password;
 
 
     //by default while working with hibernate you must have a public cot'r without param's
-
     public User() {
 
     }
 
     public User(String email, String password) {
-        this.email = email;
+        this.emil = email;
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmil() {
+        return emil;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmil(String emil) {
+        this.emil = emil;
     }
 
     public String getPassword() {
@@ -49,3 +41,4 @@ public class User {
 
     }
 }
+

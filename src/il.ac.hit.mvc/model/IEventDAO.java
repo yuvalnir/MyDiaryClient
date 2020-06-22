@@ -6,14 +6,12 @@ import java.util.List;
 
 public interface IEventDAO {
 
-    void insertEvent(Event event) throws DAOException;
-    void deleteEvent(Event event) throws DAOException;
-    void deleteEvents(List<Event> eventsList) throws DAOException;
-    Event getEvent(String email, long id) throws DAOException;
-    List<Event> getEvents(String email) throws DAOException;
-
-
-    boolean createNewUser(User user)throws DAOException;
-    boolean deleteUser(User user)throws DAOException;
-    boolean userVerification(User user) throws DAOException;
+    void insertEvent(User user, Event item) throws MVCException;
+    void deleteEvent(User user, Event item) throws MVCException;
+    void deleteEvents(User user, List<Event> eventsList) throws MVCException;
+    Event getEvent(User user, int id) throws MVCException;
+    List<Event> getEvents(User user) throws MVCException;
+    boolean createNewUser(User user)throws MVCException;
+    boolean deleteUser(User user)throws MVCException;
+    boolean userVerification(User user) throws MVCException;
 }
