@@ -11,16 +11,16 @@ public class User {
     }
 
     public User(String email, String password) {
-        this.emil = email;
+        this.email = email;
         this.password = password;
     }
 
-    public String getEmil() {
-        return emil;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmil(String emil) {
-        this.emil = emil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

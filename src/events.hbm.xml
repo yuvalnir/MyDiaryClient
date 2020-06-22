@@ -7,11 +7,26 @@
 		<id name="id" type="int" column="ID">
 			<generator class="increment"/>
 		</id>
-		<property name="name">
-			<column name="NAME"/>
+		<property name="email">
+			<column name="EMAIL"/>
 		</property>
-		<property name="price">
-			<column name="PRICE"/>
+		<property name="title">
+			<column name="TITLE"/>
+		</property>
+		<property name="location">
+			<column name="LOCATION"/>
+		</property>
+		<property name="starts">
+			<column name="STARTS"/>
+		</property>
+		<property name="ends">
+			<column name="ENDS"/>
+		</property>
+		<property name="date">
+			<column name="DATE"/>
+		</property>
+		<property name="note">
+			<column name="NOTE"/>
 		</property>
 	</class>
 </hibernate-mapping>

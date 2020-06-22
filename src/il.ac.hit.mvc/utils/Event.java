@@ -31,13 +31,13 @@ public class Event {
     }*/
 
     //overLoading
-    public Event(String email, String title, String location, Time timeStart, Time timeEnd, long id, java.sql.Date date, String note) {
+    public Event(String email,long id, String title, String location, Time timeStart, Time timeEnd, java.sql.Date date, String note) {
         this.email = email;
+        this.id = id;
         this.title = title;
         this.location = location;
         this.starts = timeStart;
         this.ends = timeEnd;
-        this.id = id;
         this.date = date;
         this.note = note;
 

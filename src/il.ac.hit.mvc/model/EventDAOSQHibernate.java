@@ -102,13 +102,13 @@ public class EventDAOSQHibernate implements IEventDAO {
     }
 
     @Override
-    public Event getEvent(String email, long id) throws DAOException {
+    public Event getEvent(User user, long eventId) throws DAOException {
         Session session = null;
         List list=null;
         try {
             session = factory.openSession();
             session.beginTransaction();
-            list = session.createQuery("from Event where email = " + email + " AND id = "+id).list();
+            list = session.createQuery("from Event where email = " + user.getEmail() + " AND id = "+eventId).list();
             return (Event) list.get(0);
 
         }
@@ -122,14 +122,14 @@ public class EventDAOSQHibernate implements IEventDAO {
     }
 
     @Override
-    public List<Event> getEvents(String email) throws DAOException {
+    public List<Event> getEvents(User user) throws DAOException {
 
         Session session = null;
         List list=null;
         try {
             session = factory.openSession();
             session.beginTransaction();
-            list = session.createQuery("from Event where email = " + email).list();
+            list = session.createQuery("from Event where email = " + user.getEmail()).list();
             return list;
 
         }
@@ -146,7 +146,7 @@ public class EventDAOSQHibernate implements IEventDAO {
         Session session = null;
 
         try {
-         List<Event> userEvents=getEvents(user.getEmail());
+         List<Event> userEvents=getEvents(user);
            deleteEvents(userEvents);
 
 
@@ -212,6 +212,8 @@ public class EventDAOSQHibernate implements IEventDAO {
         try {
             session = factory.openSession();
             session.beginTransaction();
+
+
             list = session.createQuery("from User ").list();
             if(!list.isEmpty())
             {
