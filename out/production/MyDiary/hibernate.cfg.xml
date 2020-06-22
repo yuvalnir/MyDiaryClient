@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN" 
-"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-<session-factory>
+	<session-factory>
 		<property name="hibernate.connection.driver_class">
 			com.mysql.jdbc.Driver
 		</property>
@@ -17,5 +18,5 @@
 		<!-- Mapping files -->
 		<mapping resource="events.hbm.xml"/>
 		<mapping resource="users.hbm.xml"/>
-</session-factory>
+	</session-factory>
 </hibernate-configuration>
