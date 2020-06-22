@@ -1,5 +1,7 @@
 package il.ac.hit.mvc.utils;
 
+import com.sun.istack.internal.NotNull;
+
 public class User {
     private String email;
     private String password;
@@ -10,7 +12,7 @@ public class User {
 
     }
 
-    public User(String email, String password) {
+    public User(@NotNull String email,@NotNull String password) {
         this.email = email;
         this.password = password;
     }

@@ -56,27 +56,38 @@ public class TestIt {
             {
                 System.out.println("\n user exists");
             }
+            else
+            {
+                System.out.println("\n user DON'T exists");
+
+            }
             System.out.println("inserting new event under the user");
+
 
             Event eventBen=new Event(
                     userBen.getEmail()
+                    ,99l
                     ,"party"
                     ,"Tel Aviv"
                     ,Time.valueOf("23:00:00")
                     ,Time.valueOf("03:30:00")
-                    ,12345
                     , Date.valueOf("2020-6-19")
                     ,"gonna be great");
+
+
             System.out.println("\n Event: "+eventBen.toString());
+            scanner.nextLine();
+
+            System.out.println("\n inserting the event");
             DAO.insertEvent(eventBen);
             System.out.println("\n event in database");
             scanner.nextLine();
             System.out.println("\ngetting the event");
-            System.out.println("\nEvent: "+DAO.getEvent(eventBen.getEmail(),eventBen.getId()));
+            System.out.println("\nEvent: "+DAO.getEvent(userBen,eventBen.getId()));
             scanner.nextLine();
 
             System.out.println("\n\nget events\n\n");
-            List<Event> list = DAO.getEvents(userBen.getEmail());
+            List<Event> list = DAO.getEvents(userBen);
             for (Event event:list) {
                 System.out.println("\nevent: "+event.toString());
             }
@@ -85,7 +96,6 @@ public class TestIt {
             System.out.println("Deleting user");
             DAO.deleteUser(userBen);
             System.out.println("\nuser deleted");
-
 
 
         }

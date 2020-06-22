@@ -1,5 +1,8 @@
 package il.ac.hit.mvc.utils;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,7 +34,7 @@ public class Event {
     }*/
 
     //overLoading
-    public Event(String email,long id, String title, String location, Time timeStart, Time timeEnd, java.sql.Date date, String note) {
+    public Event(@NotNull String email, Long id,@NotNull String title, String location, Time timeStart, Time timeEnd, java.sql.Date date, String note) {
         this.email = email;
         this.id = id;
         this.title = title;

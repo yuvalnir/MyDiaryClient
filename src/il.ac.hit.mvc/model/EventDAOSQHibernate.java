@@ -39,6 +39,7 @@ public class EventDAOSQHibernate implements IEventDAO {
             session.beginTransaction();
             session.save(event);
             session.getTransaction().commit();
+            event.setId((Long)session.getIdentifier(event));
         }
         catch (HibernateException e)
         {
@@ -104,17 +105,35 @@ public class EventDAOSQHibernate implements IEventDAO {
     @Override
     public Event getEvent(User user, long eventId) throws DAOException {
         Session session = null;
+        String query;
         List list=null;
         try {
             session = factory.openSession();
             session.beginTransaction();
-            list = session.createQuery("from Event where email = " + user.getEmail() + " AND id = "+eventId).list();
-            return (Event) list.get(0);
+
+            query="from Event where email = :userEmail AND id = :userId";
+
+
+            list = session.createQuery(query)
+                    .setParameter("userEmail",user.getEmail())
+                    .setParameter("userId",eventId)
+                    .list();
+            if(list.size()==1)
+            {
+                return (Event) list.get(0);
+
+            }
+            else
+            {
+               throw new DAOException("couldn't find event") ;
+               //list cant be more than 1 because of the unique ID and if empty than event not found, shouldnt be handeld in controller
+
+            }
 
         }
         catch (HibernateException e) {
             e.printStackTrace();
-            throw new DAOException("couldnt get event",e);
+            throw new DAOException("problem with DAO",e);
 
         } finally {
             session.close();
@@ -125,17 +144,29 @@ public class EventDAOSQHibernate implements IEventDAO {
     public List<Event> getEvents(User user) throws DAOException {
 
         Session session = null;
+        String query;
+
+
         List list=null;
         try {
             session = factory.openSession();
             session.beginTransaction();
-            list = session.createQuery("from Event where email = " + user.getEmail()).list();
+            query="from Event where email = :userEmail";
+            list = session.createQuery(query)
+                    .setParameter("userEmail",user.getEmail())
+                    .list();
+
+            if(list.isEmpty())
+            {
+                throw new DAOException("user have no events");
+            }
+
             return list;
 
         }
         catch (HibernateException e) {
             e.printStackTrace();
-            throw new DAOException("couldnt get events",e);
+            throw new DAOException("problem fetching the events from DAO",e);
 
         } finally {
             session.close();
@@ -212,23 +243,23 @@ public class EventDAOSQHibernate implements IEventDAO {
         try {
             session = factory.openSession();
             session.beginTransaction();
+            boolean userExists=false;
 
 
-            list = session.createQuery("from User ").list();
+            String queryQuestion =("from User where email = :userEmail AND password = :userPassword");
+            list=session.createQuery(queryQuestion)
+                    .setParameter("userEmail",user.getEmail())
+                    .setParameter("userPassword",user.getPassword()).list();
             if(!list.isEmpty())
             {
-                for (User tempUser:list) {
-                    if(tempUser.getEmail()==user.getEmail() && tempUser.getPassword()==user.getPassword())
-                    {
-                        return true;
-                    }
-                }
+                userExists=true;
             }
-            return false;
+            return userExists;
         }
-        catch (HibernateException e) {
+        catch (HibernateException e)
+        {
             e.printStackTrace();
-            throw new DAOException("at DAO: couldn't verify user",e);
+            throw new DAOException("couldn't verify user",e);
 
         } finally {
             session.close();
