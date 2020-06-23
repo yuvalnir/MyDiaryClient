@@ -1,4 +1,4 @@
-package il.ac.hit.mvc.test;
+package il.ac.hit.mvc.utils;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -66,7 +66,7 @@ public class TestIt {
 
             Event eventBen=new Event(
                     userBen.getEmail()
-                    ,99l
+                    , 99L
                     ,"party"
                     ,"Tel Aviv"
                     ,Time.valueOf("23:00:00")

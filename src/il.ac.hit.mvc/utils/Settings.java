@@ -1,4 +1,4 @@
-package il.ac.hit.mvc;
+package il.ac.hit.mvc.utils;
 
 public class Settings {
     public static String WEB_APPLICATION = "mvc";

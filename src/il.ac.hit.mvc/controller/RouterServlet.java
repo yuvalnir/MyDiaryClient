@@ -1,7 +1,6 @@
 package il.ac.hit.mvc.controller;
 
-import il.ac.hit.mvc.Settings;
-import il.ac.hit.mvc.model.DAOException;
+import il.ac.hit.mvc.utils.Settings;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +12,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@WebServlet(name="/controller/*", urlPatterns = {"/controller/*"})
+@WebServlet(name="RouterServlet", urlPatterns = {"/controller/*"})
 
 public class RouterServlet extends HttpServlet {
 
@@ -27,25 +26,38 @@ public class RouterServlet extends HttpServlet {
 
 
         String[] splitedURL=URI.split("/");
-        try {
+        //try {
 
-        // delete it at the end..used for debugging
-        PrintWriter out = response.getWriter();
+            // delete it at the end..used for debugging
+            PrintWriter out = response.getWriter();
+/*
 
-        //**/CostManagerProjectServer_war_exploded/controller/(controllerType)user/action/...
-        //                               1     /        2 /              3     /4...
-        String controller = splitedURL[3];
-        String action = splitedURL[4];
+the URL: http://localhost:8081/MyDiary/controller/user/action
+the outcome:
 
-        out.println(URI);
-        out.flush();
+ 0:
+1: MyDiary
+2: controller
+3: user
+4: action
 
-        //getting a full qualified inorder to use reflection and call the right controller
-        String temp = (controller+"Controller");
-        String controllerClassName = Settings.CONTROLLERS_PACKAGE+"."+temp.substring(0,1).toUpperCase()+temp.substring(1);
+* */
+            String controller = splitedURL[3];
+            String action = splitedURL[4];
+
+            out.println(URI+"</br>");
 
 
-        Class controllerClass = Class.forName(controllerClassName);
+
+            out.flush();
+
+            //getting a full qualified inorder to use reflection and call the right controller
+            String temp = (controller + "Controller");
+            String controllerClassName = Settings.CONTROLLERS_PACKAGE + "." + temp.substring(0, 1).toUpperCase() + temp.substring(1);
+
+            out.println(controllerClassName+"</br>");
+
+/*        Class controllerClass = Class.forName(controllerClassName);
 
         Method controllerMethod = controllerClass.getMethod(action,HttpServletRequest.class,HttpServletResponse.class);
         controllerMethod.invoke(controllerClass,request,response);
@@ -56,7 +68,7 @@ public class RouterServlet extends HttpServlet {
         } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
-/*        catch (MVCException e) {
+        catch (MVCException e) {
             //TODO needs to direct to an exception page
             e.printStackTrace();
         }
@@ -64,8 +76,11 @@ public class RouterServlet extends HttpServlet {
             //TODO needs to direct to an exception page
             //problem with the data base
             e.printStackTrace();
+        }
         }*/
-    }
+        }
+
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
