@@ -172,6 +172,7 @@ public class EventDAOSQHibernate implements IEventDAO {
             session.close();
         }
     }
+
     @Override
     public boolean deleteUser(User user) throws DAOException {
         Session session = null;
