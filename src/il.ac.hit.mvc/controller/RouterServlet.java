@@ -1,7 +1,9 @@
 package il.ac.hit.mvc.controller;
 
+import il.ac.hit.mvc.model.DAOException;
 import il.ac.hit.mvc.utils.Settings;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +22,7 @@ public class RouterServlet extends HttpServlet {
         super();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
         response.setContentType("text/html");
         String URI = request.getRequestURI();
@@ -42,6 +44,11 @@ public class RouterServlet extends HttpServlet {
         String temp = controller + "Controller";
         String controllerClassName = Settings.CONTROLLERS_PACKAGE + "." + temp.substring(0, 1).toUpperCase() + temp.substring(1);
 
+              out.print("<br/>0... "+splitedURL[0]);
+              out.print("<br/>1... "+splitedURL[1]);
+			  out.print("<br/>2... "+splitedURL[2]);
+			  out.print("<br/>3... "+splitedURL[3]);
+			  out.print("<br/>4... "+splitedURL[4]);
         out.println("controller full qualified name: " + controllerClassName + "</br>"); //remove later
 
         // instantiating the controller class and calling
@@ -63,12 +70,15 @@ public class RouterServlet extends HttpServlet {
             //TODO needs to direct to an exception page
             e.printStackTrace();
         }
-        catch (DAOException e) {
-            //TODO needs to direct to an exception page
-            //problem with the data base
+        //catch (DAOException e) {
+        //    //TODO needs to direct to an exception page
+        //    //problem with the data base
+        //    e.printStackTrace();
+        //}
+         catch (InstantiationException e) {
             e.printStackTrace();
         }
-    }
+     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);

@@ -1,0 +1,18 @@
+.ui-page.ui-body-c {
+    background: url(background_blue.jpeg);
+    height: 100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-attachment:scroll;
+    background-size:cover;
+}
+
+.ui-footer {
+    text-align: center;
+    background-color: grey;
+}
+
+* {
+font-family: 'Montserrat', sans-serif;
+}
+
