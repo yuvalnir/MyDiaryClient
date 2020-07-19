@@ -64,7 +64,7 @@
             <label for="varifiedPassword">Varify your password:</label>
             <input type="text" name="vPassword" id="varifiedPassword">
             <div id="submitUp" data-role="fieldcontain" style="width: 30%;">
-                <a href="#main" data-transition="pop"
+                <a href="/MyDiary/views/AddEvent.jsp" data-transition="pop"
                    data-rel="dialog" data-role="button">Submit</a>
             </div>
         </form>

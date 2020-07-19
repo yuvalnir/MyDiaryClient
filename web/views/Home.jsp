@@ -31,10 +31,10 @@
     color: white;font-size: 15px;text-shadow: 2px 2px black;">
         <h1 class="header" style="text-align: center;">Welcome to your</br>diary!</h1>
         <p class="mc-top-margin-1-5" ><b>Existing Users</b></p>
-        <p><a href="/views/Login.jsp" data-transition="pop"
+        <p><a href="/MyDiary/views/Login.jsp" data-transition="pop"
               data-rel="dialog" data-role="button">Sign In</a></p>
         <p class="mc-top-margin-1-5"><b>Don't have an account?</b></p>
-        <p><a href="/views/SignUp.jsp" data-transition="pop"
+        <p><a href="/MyDiary/views/SignUp.jsp" data-transition="pop"
               data-rel="dialog" data-role="button">Sign Up</a></p>
     </div>
 

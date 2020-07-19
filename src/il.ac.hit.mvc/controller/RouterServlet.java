@@ -1,6 +1,5 @@
 package il.ac.hit.mvc.controller;
 
-import il.ac.hit.mvc.model.DAOException;
 import il.ac.hit.mvc.utils.Settings;
 
 import javax.servlet.RequestDispatcher;
@@ -49,13 +48,13 @@ public class RouterServlet extends HttpServlet {
 			  out.print("<br/>2... "+splitedURL[2]);
 			  out.print("<br/>3... "+splitedURL[3]);
 			  out.print("<br/>4... "+splitedURL[4]);
-        out.println("controller full qualified name: " + controllerClassName + "</br>"); //remove later
+        out.println("<br/>controller full qualified name: " + controllerClassName + "</br>"); //remove later
 
         // instantiating the controller class and calling
         // the action method on the controller object
-        Class controllerClass = Class.forName(controllerClassName);
+        Class<Object> controllerClass = (Class<Object>) Class.forName(controllerClassName);
         Method controllerMethod = controllerClass.getMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-        controllerMethod.invoke(controllerClass.newInstance(), request ,response);
+        controllerMethod.invoke(controllerClass.getDeclaredConstructor().newInstance(), request ,response); //was controllerClass.newInstance()
         out.println("</br>" + controllerClassName); //remove later
 
         // creating a RequestDispatcher object that points at the JSP document
@@ -63,19 +62,11 @@ public class RouterServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/" + action + ".jsp");
         dispatcher.include(request,response);
 
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
         catch (MVCException e) {
             //TODO needs to direct to an exception page
-            e.printStackTrace();
-        }
-        //catch (DAOException e) {
-        //    //TODO needs to direct to an exception page
-        //    //problem with the data base
-        //    e.printStackTrace();
-        //}
-         catch (InstantiationException e) {
             e.printStackTrace();
         }
      }
