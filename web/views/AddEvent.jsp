@@ -40,8 +40,6 @@
             <input type="datetime-local" name="new_item" id="item_ends"/>
             <label>Notes:</label>
             <input type="text" name="new_item" style="height:120px;" id="item_notes"/>
-            <!--            <label>Deadline Date:</label>-->
-            <!--            <input type="date" name="new_date" id="new_date"/>-->
             <a onclick="add()" href="/MyDiary/views/Home.jsp"  data-icon="plus" data-transition="pop"
                data-rel="dialog" data-role="button">Add Event</a>
         </div>
