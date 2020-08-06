@@ -1,8 +1,8 @@
-<%--
+<%@ page import="il.ac.hit.mvc.controller.UserController" %><%--
   Created by IntelliJ IDEA.
   User: yuval
   Date: 13/07/2020
-  Time: 14:51
+  Time: 14:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,11 +17,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div data-role="page" id="Home" >
-    <div data-role = "header" id="head">
-        <h2>Diary App</h2>
-    </div>
 
+<div data-role="page" id="signIn">
+    <div data-role="header">
+        <h1>Sign In Page</h1>
+    </div>
     <div data-role="content" style="background: url(background_main.png);
     height: 100%;
     background-repeat:no-repeat;
@@ -29,23 +29,15 @@
     background-attachment:scroll;
     background-size:cover;
     color: white;font-size: 15px;text-shadow: 2px 2px black;">
-        <h1 class="header" style="text-align: center;">Welcome to your</br>diary!</h1>
-        <p class="mc-top-margin-1-5" ><b>Existing Users</b></p>
-        <p><a href="/MyDiary/views/Login.jsp" data-transition="pop"
-              data-rel="dialog" data-role="button">Sign In</a></p>
-        <p class="mc-top-margin-1-5"><b>Don't have an account?</b></p>
-        <p><a href="/MyDiary/views/SignUp.jsp" data-transition="pop"
-              data-rel="dialog" data-role="button">Sign Up</a></p>
-    </div>
-
-    <div data-role="footer" data-position="fixed">
-        <h4>This app was developed by:</h4>
-        <ul style="list-style-type: none;">
-            <li>Alisa Makarova</li>
-            <li>Ben Vahaba</li>
-            <li>Yuval Nir</li>
-        </ul>
+        <form method="post" action="/MyDiary/controller/user/login">
+            <label for="email">Enter your email:</label>
+            <input type="text" name="email" id="email">
+            <label for="password">Enter your password:</label>
+            <input type="text" name="password" id="password">
+            <input type="submit" value="Submit">
+        </form>
     </div>
 </div>
+
 </body>
 </html>

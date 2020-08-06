@@ -14,46 +14,49 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div data-role="page" id="main" >
+
+<div data-role="page" id="addEventPage" >
     <div data-role="header">
-        <h1>Main Page</h1>
+        <h1>Add Event</h1>
     </div>
     <div data-role="content"  style="background: url(background_main.png);
-    height: 100%;
-    background-repeat:no-repeat;
-    background-position:center;
+    background-repeat:repeat-y;
+    background-position:center center;
     background-attachment:scroll;
-    background-size:cover;
+    background-size:100% 100%;
     color: white;font-size: 15px;text-shadow: 2px 2px black;">
 
-        <div>
+        <form method="post" action="/MyDiary/controller/user/addevent">
             <label>Event:</label>
-            <input type="text" name="new_item" id="new_item"/>
+            <input type="text" name="title" id="title"/>
             <label>Place:</label>
-            <input type="text" name="new_item" id="item_place"/>
+            <input type="text" name="location" id="location"/>
             <label>Begins:</label>
-            <input type="datetime-local" name="new_item" id="item_begins"/>
+            <input type="time" name="timeStart" id="timeStart"/>
             <label>Ends:</label>
-            <input type="datetime-local" name="new_item" id="item_ends"/>
+            <input type="time" name="timeEnd" id="timeEnd"/>
+            <label>Deadline Date:</label>
+            <input type="date" name="date" id="date"/>
             <label>Notes:</label>
-            <input type="text" name="new_item" style="height:120px;" id="item_notes"/>
-            <a onclick="add()" href="/MyDiary/views/Home.jsp"  data-icon="plus" data-transition="pop"
-               data-rel="dialog" data-role="button">Add Event</a>
-        </div>
+            <input type="submit" value="Add Event">
+        </form>
     </div>
 
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="/MyDiary/views/Home.jsp" data-icon="home">Entry Page</a></li>
-                <li><a href="/MyDiary/views/Calendar.jsp" data-icon="calendar">Calendar</a></li>
-                <li><a href="/MyDiary/views/UsabilityGraph.jsp" data-icon="eye">Graph</a></li>
+                <li><a href="/MyDiary/views/home.jsp" data-icon="home">Entry Page</a></li>
+                <li><a href="/MyDiary/views/calendar.jsp" data-icon="calendar">Calendar</a></li>
+                <li><a href="/MyDiary/views/usabilitygraph.jsp" data-icon="eye">Graph</a></li>
             </ul>
         </div>
     </div>
 </div>
+
 </body>
 </html>

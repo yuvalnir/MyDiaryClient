@@ -1,77 +1,80 @@
-package il.ac.hit.mvc.controller;
+    package il.ac.hit.mvc.controller;
 
-import il.ac.hit.mvc.utils.Settings;
+    import il.ac.hit.mvc.utils.Settings;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+    import javax.servlet.RequestDispatcher;
+    import javax.servlet.ServletException;
+    import javax.servlet.annotation.WebServlet;
+    import javax.servlet.http.HttpServlet;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+    import java.io.IOException;
+    import java.lang.reflect.InvocationTargetException;
+    import java.lang.reflect.Method;
 
-@WebServlet(name = "RouterServlet", urlPatterns = {"/controller/*"})
 
-public class RouterServlet extends HttpServlet {
+    @WebServlet(name = "RouterServlet", urlPatterns = {"/controller/*", "/site/*"})
 
-    public  RouterServlet() {
-        super();
-    }
+    public class RouterServlet extends HttpServlet {
 
-     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-        response.setContentType("text/html");
-        String URI = request.getRequestURI();
-        String[] splitedURL=URI.split("/");
-
-        PrintWriter out = response.getWriter(); // delete it at the end..used for debugging
-
-        /* the URL: http://localhost:8081/MyDiary/controller/user/action
-           0:
-           1: MyDiary
-           2: controller
-           3: user
-           4: action */
-        String controller = splitedURL[3];
-        String action = splitedURL[4];
-        out.println(URI+"</br>"); //remove later
-
-        //building the full qualified name of the controller in order to use reflection and call the right controller
-        String temp = controller + "Controller";
-        String controllerClassName = Settings.CONTROLLERS_PACKAGE + "." + temp.substring(0, 1).toUpperCase() + temp.substring(1);
-
-              out.print("<br/>0... "+splitedURL[0]);
-              out.print("<br/>1... "+splitedURL[1]);
-			  out.print("<br/>2... "+splitedURL[2]);
-			  out.print("<br/>3... "+splitedURL[3]);
-			  out.print("<br/>4... "+splitedURL[4]);
-        out.println("<br/>controller full qualified name: " + controllerClassName + "</br>"); //remove later
-
-        // instantiating the controller class and calling
-        // the action method on the controller object
-        Class<Object> controllerClass = (Class<Object>) Class.forName(controllerClassName);
-        Method controllerMethod = controllerClass.getMethod(action, HttpServletRequest.class, HttpServletResponse.class);
-        controllerMethod.invoke(controllerClass.getDeclaredConstructor().newInstance(), request ,response); //was controllerClass.newInstance()
-        out.println("</br>" + controllerClassName); //remove later
-
-        // creating a RequestDispatcher object that points at the JSP document
-        // which is view of our action
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/" + action + ".jsp");
-        dispatcher.include(request,response);
-
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+        public  RouterServlet() {
+            super();
         }
-        catch (MVCException e) {
-            //TODO needs to direct to an exception page
-            e.printStackTrace();
-        }
-     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+         protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+             try {
+                 String requestURI = request.getRequestURI();
+
+                 if (isJSPPageRequest(requestURI)) {
+                     serveJSPPageFromURL(request, response);
+                     return;
+                 }
+
+                 invokeAPIAction(request, response);
+             } catch (Exception e) {
+                 e.printStackTrace();
+             }
+         }
+
+        private void invokeAPIAction(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+            String requestURI = request.getRequestURI();
+            String controllerClassName = createControllerNameFromRoute(requestURI);
+            String action = getActionFromURL(requestURI);
+
+            Class controllerClass = Class.forName(controllerClassName);
+            Method controllerMethod = controllerClass.getMethod(action, HttpServletRequest.class, HttpServletResponse.class, String.class);
+            controllerMethod.invoke(controllerClass.getDeclaredConstructor().newInstance(), request ,response); //was controllerClass.newInstance()
+        }
+
+        private void serveJSPPageFromURL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            response.setContentType("text/html");
+            String view = getJSPPageFromURL(request.getRequestURI());
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/" + view.toLowerCase() + ".jsp");
+            dispatcher.forward(request, response);
+        }
+
+        private boolean isJSPPageRequest(String requestUrl) {
+            return getJSPPageFromURL(requestUrl).equals("site");
+        }
+
+        private String getJSPPageFromURL(String requestUrl) {
+            String[] URLParts = requestUrl.split("/");
+            return URLParts[3];
+        }
+
+        private String getActionFromURL(String requestUrl) {
+            String[] URLParts = requestUrl.split("/");
+            return URLParts[4];
+        }
+
+        private String createControllerNameFromRoute(String requestUrl) {
+            String[] URLParts = requestUrl.split("/");
+            String controllerPrefix = URLParts[3];
+            String temp = controllerPrefix + "Controller";
+            return Settings.CONTROLLERS_PACKAGE + "." + temp.substring(0, 1).toUpperCase() + temp.substring(1);
+        }
+
+        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            doGet(request, response);
+        }
     }
-}
