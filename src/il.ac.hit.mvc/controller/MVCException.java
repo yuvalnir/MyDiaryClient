@@ -1,4 +1,4 @@
-package il.ac.hit.mvc.controller;
+package controller;
 
 public class MVCException extends RuntimeException{
 

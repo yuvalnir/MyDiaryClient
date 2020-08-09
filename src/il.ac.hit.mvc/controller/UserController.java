@@ -1,4 +1,4 @@
-package il.ac.hit.mvc.controller;
+package controller;
 
 import com.google.gson.*;
 import il.ac.hit.mvc.utils.Event;
