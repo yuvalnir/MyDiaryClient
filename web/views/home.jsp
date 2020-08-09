@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div data-role="page" id="entryPage" >
     <div data-role = "header" id="head">
         <h2>Diary App</h2>
@@ -49,6 +50,7 @@
                     <a href="/MyDiary/views/signup.jsp" data-transition="pop" data-rel="external" data-role="button">Sign Up</a></p>
             </div>
         </div>
+        <div data-role="popup" id="signInPopup" data-position-to="window" data-transition="turn"><p>Please enter correct Email/Password</p></div>
     </div>
 
     <div data-role="footer" data-position="fixed">
@@ -60,5 +62,6 @@
         </ul>
     </div>
 </div>
+
 </body>
 </html>

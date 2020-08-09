@@ -42,7 +42,7 @@
             String action = getActionFromURL(requestURI);
 
             Class controllerClass = Class.forName(controllerClassName);
-            Method controllerMethod = controllerClass.getMethod(action, HttpServletRequest.class, HttpServletResponse.class, String.class);
+            Method controllerMethod = controllerClass.getMethod(action, HttpServletRequest.class, HttpServletResponse.class);
             controllerMethod.invoke(controllerClass.getDeclaredConstructor().newInstance(), request ,response); //was controllerClass.newInstance()
         }
 

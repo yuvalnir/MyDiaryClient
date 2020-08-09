@@ -42,19 +42,10 @@
             <input type="time" name="timeEnd" id="timeEnd"/>
             <label>Deadline Date:</label>
             <input type="date" name="date" id="date"/>
-            <label>Notes:</label>
+            <label>Note:</label>
+            <input type="text" name="note" style="height:60px;" id="note"/>
             <input type="submit" value="Add Event">
         </form>
-    </div>
-
-    <div data-role="footer" data-position="fixed">
-        <div data-role="navbar">
-            <ul>
-                <li><a href="/MyDiary/views/home.jsp" data-icon="home">Entry Page</a></li>
-                <li><a href="/MyDiary/views/calendar.jsp" data-icon="calendar">Calendar</a></li>
-                <li><a href="/MyDiary/views/usabilitygraph.jsp" data-icon="eye">Graph</a></li>
-            </ul>
-        </div>
     </div>
 </div>
 

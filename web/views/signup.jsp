@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div data-role="page" id="signUp">
+
+<div data-role="page" id="signUpPage">
     <div data-role="header">
         <h1>Sign Up Page</h1>
     </div>
@@ -41,6 +42,8 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+    <div data-role="popup" id="signUpPopup" data-position-to="window" data-transition="turn"><p>Oops! Passwords doesnt match!</p></div>
 </div>
+
 </body>
 </html>
