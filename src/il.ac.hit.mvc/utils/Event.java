@@ -1,11 +1,7 @@
 package il.ac.hit.mvc.utils;
 
-
-//import com.sun.istack.internal.NotNull;
-
-import java.sql.Date;
 import java.sql.Time;
-
+import java.sql.Date;
 
 public class Event {
     /**
@@ -42,7 +38,6 @@ public class Event {
         setEnds(timeEnd);
         setDate(date);
         setNote(note);
-
     }
 
     public String getTitle() {
@@ -72,26 +67,6 @@ public class Event {
         this.location = location;
     }
 
-    public Time getStarts() {
-        /** gets the event start time as java.sql.Time object */
-        return starts;
-    }
-
-    public void setStarts(Time starts) {
-        /** sets the event start time as java.sql.Time object */
-        this.starts = starts;
-    }
-
-    public Time getEnds() {
-        /** gets the event end time as java.sql.Time object */
-        return ends;
-    }
-
-    public void setEnds(Time ends) {
-        /** gets the event end time as java.sql.Time object */
-        this.ends = ends;
-    }
-
     public long getId() {
         /**get the event id, id can not be Null.*/
         return id;
@@ -103,12 +78,12 @@ public class Event {
     }
 
     public Date getDate() {
-        /** gets the event date as import java.sql.Date object */
+        /** gets the event date as import java.util.Date object */
         return date;
     }
 
     public void setDate(Date date) {
-        /** sets the event date as import java.sql.Date object */
+        /** sets the event date as import java.util.Date object */
         this.date = date;
     }
 
@@ -120,6 +95,26 @@ public class Event {
     public void setNote(String note) {
         /** sets the event note as a String object*/
         this.note = note;
+    }
+
+    public Time getStarts() {
+        /** gets the event time as import java.util.Date object */
+        return starts;
+    }
+
+    public Time getEnds() {
+        /** gets the event time as import java.util.Date object */
+        return ends;
+    }
+
+    public void setEnds(Time ends) {
+        /** sets the event time as import java.util.Date object */
+        this.ends = ends;
+    }
+
+    public void setStarts(Time starts) {
+        /** sets the event time as import java.util.Date object */
+        this.starts = starts;
     }
 
     public String getEmail() {
