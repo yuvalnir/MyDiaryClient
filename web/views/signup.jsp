@@ -32,7 +32,7 @@
     background-size:cover;
     color: white;font-size: 15px;text-shadow: 2px 2px black;">
 
-        <form method="post" action="/MyDiary/controller/user/signup">
+        <form method="post" action="/MyDiary/controller/user/signup" style="width: 400px; margin: 0 auto; ">
             <label for="email">Enter your email:</label>
             <input type="text" name="email" id="email" placeholder="Email">
             <label for="password">Enter your password:</label>

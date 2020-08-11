@@ -32,7 +32,7 @@
     background-size:100% 100%;
     color: white;font-size: 15px;text-shadow: 2px 2px black;">
         <h1 class="header" style="text-align: center;">Welcome to your</br>diary!</h1>
-        <div>
+        <div style="width: 400px; margin: 0 auto;">
             <p class="mc-top-margin-1-5" ><b>Existing Users</b></p>
 
             <form method="post" action="/MyDiary/controller/user/login">

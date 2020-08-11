@@ -5,9 +5,12 @@
 <%@ page import="java.lang.reflect.Type" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="com.google.gson.*" %>
+
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="il.ac.hit.mvc.utils.GsonDateDeSerializer" %>
-<%@ page import="java.util.Date" %><%--
+<%@page import="java.sql.Date" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="il.ac.hit.mvc.utils.GsonLocalDateAdapter" %><%--
   Created by IntelliJ IDEA.
   User: yuval
   Date: 14/07/2020
@@ -33,6 +36,8 @@
         <h1>List of events</h1>
     </div>
     <div data-role="content"  style="background: url(background_main.png);
+        width: 400px;
+        margin: 0 auto;
         background-repeat:repeat-y;
         background-position:center center;
         background-attachment:scroll;
@@ -45,22 +50,25 @@
         </div>
         <div id="eventsContainer"></div>
 
-           <% String jsonEvent = (String) request.getAttribute("events");
-            Gson gson = new Gson();
-
+           <!-- String jsonEvent = (String) request.getAttribute("events");
+//            Gson gson = new Gson();
+//            Gson gson = new GsonBuilder().setDateFormat("hh:mm:ss aa").create();
+            Gson gson = new GsonBuilder()
+                       .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
+                       .create();
             Type listType = new TypeToken<List<Event>>(){}.getType();
             List<Event> events = gson.fromJson(jsonEvent, listType);
-               for (Event event : events) {%>
-        <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
-            <p><%=event.getEmail()%></p>
-            <p><%=event.getTitle()%></p>
-            <p><%=event.getLocation()%></p>
-            <p><%=event.getDate()%></p>
-            <p><%=event.getStarts()%></p>
-            <p><%=event.getEnds()%></p>
-            <p><%=event.getNote()%></p>
-        </div>
-        <% } %>
+               for (Event event : events) {-->
+<%--        <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">--%>
+<%--            <p><%=event.getEmail()%></p>--%>
+<%--            <p><%=event.getTitle()%></p>--%>
+<%--            <p><%=event.getLocation()%></p>--%>
+<%--            <p><%=event.getDate()%></p>--%>
+<%--            <p><%=event.getStarts()%></p>--%>
+<%--            <p><%=event.getEnds()%></p>--%>
+<%--            <p><%=event.getNote()%></p>--%>
+<%--        </div>--%>
+        <!-- } -->
         </div>
     </div>
 

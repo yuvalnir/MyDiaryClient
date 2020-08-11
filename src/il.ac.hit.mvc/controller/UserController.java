@@ -55,6 +55,8 @@ public class UserController {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
+
+            
             request.setAttribute("events", refresheventslist(request, response));
             dispatcher.forward(request, response);
         } else if (userResponse.statusCode() >= 400 && userResponse.statusCode() >= 499) {
@@ -162,6 +164,9 @@ public class UserController {
         try {
             userResponse = client.send(userRequest, HttpResponse.BodyHandlers.ofString());
             System.out.println(userResponse.toString()); //remove later
+/*            Gson gson = new Gson();
+            JsonObject convertedObject = new Gson().fromJson(userResponse.body(), JsonObject.class);*/
+
             System.out.println(userResponse.body()); //remove later
         } catch (InterruptedException e) {
             System.out.println("Something went wrong with sending request...");
