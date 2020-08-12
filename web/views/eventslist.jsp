@@ -1,16 +1,10 @@
 <%@ page import="il.ac.hit.mvc.utils.Event" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.google.gson.stream.JsonReader" %>
 <%@ page import="com.google.gson.reflect.TypeToken" %>
 <%@ page import="java.lang.reflect.Type" %>
-<%@ page import="java.util.HashMap" %>
 <%@ page import="com.google.gson.*" %>
-
-<%@ page import="java.text.DateFormat" %>
-<%@ page import="il.ac.hit.mvc.utils.GsonDateDeSerializer" %>
-<%@page import="java.sql.Date" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page import="il.ac.hit.mvc.utils.GsonLocalDateAdapter" %><%--
+<%@ page import="il.ac.hit.mvc.controller.UserController" %>
+<%--
   Created by IntelliJ IDEA.
   User: yuval
   Date: 14/07/2020
@@ -50,14 +44,10 @@
         </div>
         <div id="eventsContainer"></div>
 
-           <% String jsonEvent = (String) request.getAttribute("events");
-            Gson gson=new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
-
-            Type listType = new TypeToken<List<Event>>(){}.getType();
-            List<Event> events = gson.fromJson(jsonEvent, listType);
+           <%
+            List<Event> events = (List<Event>)request.getAttribute("events");
                for (Event event : events) {%>
         <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
-            <p><%=event.getEmail()%></p>
             <p><%=event.getTitle()%></p>
             <p><%=event.getLocation()%></p>
             <p><%=event.getDate()%></p>
@@ -67,7 +57,7 @@
         </div>
         <% } %>
         </div>
-    </div>
+
 
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
@@ -78,6 +68,7 @@
             </ul>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

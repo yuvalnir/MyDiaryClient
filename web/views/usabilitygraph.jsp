@@ -71,9 +71,20 @@
         <div>
             <div id="chartContainer" data-role="content" style="height: 400px; width: 96%;"></div>
         </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="/MyDiary/views/home.jsp" data-icon="home">Log Out</a></li>
+                    <li><a href="/MyDiary/controller/events/events" data-icon="calendar">All Events</a></li>
+                    <li><a href="/MyDiary/views/usabilitygraph.jsp" data-icon="eye">Graph</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
 
 
 </body>
 </html>
+

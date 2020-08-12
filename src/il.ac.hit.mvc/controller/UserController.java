@@ -2,12 +2,14 @@ package il.ac.hit.mvc.controller;
 
 import com.google.gson.*;
 import il.ac.hit.mvc.utils.Event;
+import il.ac.hit.mvc.utils.EventsService;
 import il.ac.hit.mvc.utils.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class UserController {
 
+    private EventsService eventsService = new EventsService();
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
         JsonObject userJson = new JsonObject();
@@ -28,22 +31,15 @@ public class UserController {
         userJson.add("email", JsonParser.parseString(email));
         userJson.add("password", JsonParser.parseString(password));
 
-        System.out.println("Email is " + request.getParameter("email")); //remove later
-        System.out.println("Password is " + request.getParameter("password")); //remove later
-        System.out.println(userJson.toString()); //remove later
-
         HttpRequest userRequest = HttpRequest.newBuilder(new URI("http://localhost:8080/mydiary/api/user/verify"))
-                .headers("Content-Type", "application/json") //might not be needed, needs to be tested
+                .headers("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(userJson.toString()))
                 .build();
-
 
         HttpClient client = HttpClient.newBuilder().build();
         HttpResponse<Void> userResponse = null;
         try {
             userResponse = client.send(userRequest, HttpResponse.BodyHandlers.discarding()); //might be HttpResponse.BodyHandlers.ofInputStream()
-            System.out.println(userResponse.toString()); //remove later
-            System.out.println(userResponse.body()); //remove later
         } catch (InterruptedException e) {
             System.out.println("Something went wrong with sending request...");
             e.printStackTrace();
@@ -52,12 +48,12 @@ public class UserController {
         // redirecting to jsp page
         if (userResponse.statusCode() == 200) {
 
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
 
-            
-            request.setAttribute("events", refresheventslist(request, response));
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
+
+            request.setAttribute("events", eventsService.fetchEvents(email, password));
             dispatcher.forward(request, response);
         } else if (userResponse.statusCode() >= 400 && userResponse.statusCode() >= 499) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/error.jsp");
@@ -75,7 +71,7 @@ public class UserController {
         System.out.println(userJson.toString()); //remove later
 
         HttpRequest userRequest = HttpRequest.newBuilder(new URI("http://localhost:8080/mydiary/api/user/new"))
-                .headers("Content-Type", "application/json") //might not be needed, needs to be tested
+                .headers("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(userJson.toString()))
                 .build();
 
@@ -124,7 +120,7 @@ public class UserController {
         System.out.println("Add Event String: "+ jsonObject.toString()); //remove later
 
         HttpRequest userRequest = HttpRequest.newBuilder(new URI("http://localhost:8080/mydiary/api/event/new"))
-                .headers("Content-Type", "application/json") //might not be needed, needs to be tested
+                .headers("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
                 .build();
 
@@ -149,41 +145,6 @@ public class UserController {
         }
     }
 
-    public String refresheventslist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.add("email", JsonParser.parseString((String) request.getSession().getAttribute("email")));
-        jsonObject.add("password", JsonParser.parseString((String) request.getSession().getAttribute("password")));
-
-        HttpRequest userRequest = HttpRequest.newBuilder(new URI("http://localhost:8080/mydiary/api/event/get/all"))
-                .headers("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
-                .build();
-
-        HttpClient client = HttpClient.newBuilder().build();
-        HttpResponse<String> userResponse = null;
-        try {
-            userResponse = client.send(userRequest, HttpResponse.BodyHandlers.ofString());
-            System.out.println(userResponse.toString()); //remove later
-/*            Gson gson = new Gson();
-            JsonObject convertedObject = new Gson().fromJson(userResponse.body(), JsonObject.class);*/
-
-            System.out.println(userResponse.body()); //remove later
-        } catch (InterruptedException e) {
-            System.out.println("Something went wrong with sending request...");
-            e.printStackTrace();
-        }
-
-        // redirecting to jsp page
-        if(userResponse.statusCode() == 200) {
-            return userResponse.body();
-            //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
-            //dispatcher.forward(request, response);
-        } else {
-            return null;
-            //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/error.jsp");
-            //dispatcher.forward(request, response);
-        }
-    }
 
     public void usabilitygraph(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/usabilitygraph.jsp");

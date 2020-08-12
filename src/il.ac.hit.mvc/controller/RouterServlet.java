@@ -30,11 +30,30 @@
                      return;
                  }
 
+                 String[] uriParts = requestURI.split("/");
+                 String filename = uriParts[uriParts.length - 1];
+                 if (isStaticFile(filename)) {
+                     RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/" + filename);
+                     dispatcher.forward(request, response);
+                     return;
+                 }
+
                  invokeAPIAction(request, response);
              } catch (Exception e) {
                  e.printStackTrace();
              }
          }
+
+        private boolean isStaticFile(String filename) {
+            String[] staticFileExtensions = {".jpeg", ".jpg", ".css", ".js", ".png"};
+            System.out.println("file name: " + filename);
+            for (String extension : staticFileExtensions) {
+                if (filename.endsWith(extension)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         private void invokeAPIAction(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
             String requestURI = request.getRequestURI();
