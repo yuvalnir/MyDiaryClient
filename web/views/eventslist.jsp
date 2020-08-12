@@ -50,25 +50,22 @@
         </div>
         <div id="eventsContainer"></div>
 
-           <!-- String jsonEvent = (String) request.getAttribute("events");
-//            Gson gson = new Gson();
-//            Gson gson = new GsonBuilder().setDateFormat("hh:mm:ss aa").create();
-            Gson gson = new GsonBuilder()
-                       .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
-                       .create();
+           <% String jsonEvent = (String) request.getAttribute("events");
+            Gson gson=new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+
             Type listType = new TypeToken<List<Event>>(){}.getType();
             List<Event> events = gson.fromJson(jsonEvent, listType);
-               for (Event event : events) {-->
-<%--        <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">--%>
-<%--            <p><%=event.getEmail()%></p>--%>
-<%--            <p><%=event.getTitle()%></p>--%>
-<%--            <p><%=event.getLocation()%></p>--%>
-<%--            <p><%=event.getDate()%></p>--%>
-<%--            <p><%=event.getStarts()%></p>--%>
-<%--            <p><%=event.getEnds()%></p>--%>
-<%--            <p><%=event.getNote()%></p>--%>
-<%--        </div>--%>
-        <!-- } -->
+               for (Event event : events) {%>
+        <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
+            <p><%=event.getEmail()%></p>
+            <p><%=event.getTitle()%></p>
+            <p><%=event.getLocation()%></p>
+            <p><%=event.getDate()%></p>
+            <p><%=event.getStarts()%></p>
+            <p><%=event.getEnds()%></p>
+            <p><%=event.getNote()%></p>
+        </div>
+        <% } %>
         </div>
     </div>
 

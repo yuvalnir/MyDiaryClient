@@ -11,8 +11,8 @@ public class Event {
     private String email;
     private String title;
     private String location;
-    private Time starts;
-    private Time ends;
+    private String starts;
+    private String ends;
     private Date date;
     private String note;
 
@@ -25,7 +25,7 @@ public class Event {
 
     }
 
-    public Event(/*@NotNull*/ String email, Long id, /*@NotNull*/ String title, String location, Time timeStart, Time timeEnd, Date date, String note) {
+    public Event(/*@NotNull*/ String email, Long id, /*@NotNull*/ String title, String location, String timeStart, String timeEnd, Date date, String note) {
         /**
          *  overloading Cto'r.
          *
@@ -97,22 +97,22 @@ public class Event {
         this.note = note;
     }
 
-    public Time getStarts() {
+    public String getStarts() {
         /** gets the event time as import java.util.Date object */
         return starts;
     }
 
-    public Time getEnds() {
+    public String getEnds() {
         /** gets the event time as import java.util.Date object */
         return ends;
     }
 
-    public void setEnds(Time ends) {
+    public void setEnds(String ends) {
         /** sets the event time as import java.util.Date object */
         this.ends = ends;
     }
 
-    public void setStarts(Time starts) {
+    public void setStarts(String starts) {
         /** sets the event time as import java.util.Date object */
         this.starts = starts;
     }
@@ -136,8 +136,8 @@ public class Event {
         return "Email: "+getEmail()+" "
                 +"Title: "+getTitle()+" "
                 +" Location: "+getLocation()+" "
-                +" Time starts: "+getStarts().toString()+" "
-                +" Time ends: "+getEnds().toString()+" "
+                +" Time starts: "+getStarts()+" "
+                +" Time ends: "+getEnds()+" "
                 +" ID: "+getId()+" "
                 +" Date: "+getDate().toString()+" "
                 +" Note: "+note+" ";
