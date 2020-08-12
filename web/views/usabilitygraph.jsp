@@ -1,13 +1,29 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: yuval
-  Date: 13/07/2020
-  Time: 14:52
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.JsonObject"%>
+
+<%
+    Gson gsonObj = new Gson();
+    Map<Object,Object> map = null;
+    List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+
+    map = new HashMap<Object,Object>(); map.put("label", "Australia"); map.put("y", 81000); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "China"); map.put("y", 47000); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "Brazil"); map.put("y", 32500); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "Guinea"); map.put("y", 19300); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "India"); map.put("y", 19000); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "Jamaica"); map.put("y", 9800); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "Kazakhstan"); map.put("y", 5500); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "Russia"); map.put("y", 5300); list.add(map);
+    map = new HashMap<Object,Object>(); map.put("label", "Others"); map.put("y", 15060); list.add(map);
+
+    String dataPoints = gsonObj.toJson(list);
+%>
+
+<!DOCTYPE HTML>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Usability Graph</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,75 +31,49 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "light2",
+                title: {
+                    text: "World Bauxite Production"
+                },
+                subtitles: [{
+                    text: "in tonnes"
+                }],
+                data: [{
+                    type: "doughnut",
+                    yValueFormatString: "#,##0",
+                    indexLabel: "{label}: {y}K",
+                    toolTipContent: "{y}K tonnes",
+                    dataPoints : <%=dataPoints%>
+                }]
+            });
+            chart.render();
+
+        }
+    </script>
 </head>
 <body>
-    <h1>Statistics by Location</h1>
+<h1>Statistics by Location</h1>
 
-    <div data-role="page" id="graphPage" style="background: url(background_main.png);
+<div data-role="page" id="graphPage" style="background: url(background_main.png);
             background-repeat:repeat-y;
             background-position:center center;
             background-attachment:scroll;
             background-size:100% 100%;
             color: white;font-size: 15px; height: 100%">
-        <div data-role="header">
-            <h1>Statistics Graph</h1>
-        </div>
-        <div>
-            <div id="chartContainer" data-role="content" style="height: 400px; width: 96%;"></div>
-        </div>
-
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="/MyDiary/controller/user/logout" data-icon="home">Log Out</a></li>
-                    <li><a href="/MyDiary/controller/events/eventslist" data-icon="calendar">All Events</a></li>
-                    <li><a href="/MyDiary/controller/user/usabilitygraph" data-icon="eye">Graph</a></li>
-                </ul>
-            </div>
-        </div>
+    <div data-role="header">
+        <h1>Statistics Graph</h1>
+    </div>
+    <div>
+        <div id="chartContainer" data-role="content" style="height: 400px; width: 96%;"></div>
     </div>
 
-
-    <script type="text/javascript">
-        console.log("do we have jquery?");
-        console.log($);
-
-        //Graph
-        $('#chartContainer').on('pagebeforeshow', $(function () {
-            var options = {
-                title: {
-                    text: "Events by Location"
-                },
-                // axisX:{
-                //     viewportMinimum: -50,
-                //     viewportMaximum: 50
-                // },
-                // width: 600,
-                height: 400,
-                data: [{
-                    type: "doughnut",
-                    startAngle: 45,
-                    showInLegend: false,
-                    legendText: "{label}",
-                    indexLabel: "{label} - #percent%",
-                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-                    yValueFormatString:"#,##0.#"%"",
-                    dataPoints: [
-                        { label: "Tel Aviv", y: 36 },
-                        { label: "Jerusalem", y: 31 },
-                        { label: "Tizinabi", y: 17 },
-                        { label: "Los Angeles", y: 7 },
-                        { label: "Lhasa", y: 10 },
-                    ]
-                }]
-            };
-            $("#chartContainer").CanvasJSChart(options);
-        })
-        );
-
-    </script>
+</div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
-

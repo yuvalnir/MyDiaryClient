@@ -443,7 +443,7 @@ $(document).ready(function(){
 
     $("#showGraphBtn").click(function(e) {
         e.preventDefault()
-        getDataForStatisticsByLocation()
+        // getDataForStatisticsByLocation()
     })
 
     $("#signOutBtn").click(function(e) {
@@ -506,80 +506,80 @@ $(document).ready(function(){
                 console.log('no data for statistics')
             }
             $.mobile.changePage($('#graphPage'));
-            initializeGraph()
+            // initializeGraph()
         })
     }
 
-    function initializeGraph() {
-        var statisticsData = [];
+    // function initializeGraph() {
+    //     var statisticsData = [];
+    //
+    //     Object.keys(statisticsByLocation).forEach(function (locationCity) {
+    //         var number = statisticsByLocation[locationCity];
+    //         statisticsData.push({ label: locationCity, y: number})
+    //     });
+    //
+    //     clear global data
+        // statisticsByLocation = {}
+        // console.log('statisticsByLocation >>>>', statisticsData)
+        //
+        // var options = {
+        //     title: {
+        //         text: "Events by Location"
+        //     },
+        //     titleWrap: true,
+        //     dataPointWidth: 10,
+        //     axisX:{
+        //         viewportMinimum: -50,
+        //         viewportMaximum: 50
+        //     },
+        //     width: 340,
+        //     backgroundColor: "#F5DEB3", //todo change color
+        //     toolTip:{
+        //         enabled: true,
+        //     },
+        //     data: [
+        //         {
+        //             type: "doughnut",
+        //            startAngle: 60,
+                    // innerRadius: 60,
+                    // indexLabelFontSize: 10,
+                    // indexLabel: "{label} - #percent%",
+                    // toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                    // dataPoints: statisticsData
+                // }
+            // ]
+        // };
 
-        Object.keys(statisticsByLocation).forEach(function (locationCity) {
-            var number = statisticsByLocation[locationCity];
-            statisticsData.push({ label: locationCity, y: number})
-        });
-
-        //clear global data
-        statisticsByLocation = {}
-        console.log('statisticsByLocation >>>>', statisticsData)
-
-        var options = {
-            title: {
-                text: "Events by Location"
-            },
-            titleWrap: true,
-            dataPointWidth: 10,
-            axisX:{
-                viewportMinimum: -50,
-                viewportMaximum: 50
-            },
-            width: 340,
-            backgroundColor: "#F5DEB3", //todo change color
-            toolTip:{
-                enabled: true,
-            },
-            data: [
-                {
-                    type: "doughnut",
-//                    startAngle: 60,
-                    innerRadius: 60,
-                    indexLabelFontSize: 10,
-                    indexLabel: "{label} - #percent%",
-                    toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-                    dataPoints: statisticsData
-                }
-            ]
-        };
-
-        $("#chartContainer").CanvasJSChart(options);
-    }
+        // $("#chartContainer").CanvasJSChart(options);
+    // }
 
 
 
-    //Graph
-    $(function () {
-        var options = {
-            title: {
-                text: "Events by Location"
-            },
-            data: [{
-                type: "pie",
-                startAngle: 45,
-                showInLegend: false,
-                legendText: "{label}",
-                indexLabel: "{label} ({y})",
-                yValueFormatString:"#,##0.#"%"",
-                dataPoints: [
-                    { label: "Tel Aviv", y: 36 },
-                    { label: "Jerusalem", y: 31 },
-                    { label: "Tizinabi", y: 7 },
-                    { label: "Twitter", y: 7 },
-                    { label: "Facebook", y: 6 },
-                ]
-            }]
-        };
-
-        $("#chartContainer").CanvasJSChart(options);
-    });
+    // //Graph
+    // $(function () {
+    //     var options = {
+    //         title: {
+    //             text: "Events by Location"
+    //         },
+    //         data: [{
+    //             type: "pie",
+    //             startAngle: 45,
+    //             showInLegend: false,
+    //             legendText: "{label}",
+    //             indexLabel: "{label} ({y})",
+    //             yValueFormatString:"#,##0.#"%"",
+    //             dataPoints: [
+    //                 { label: "Tel Aviv", y: 36 },
+    //                 { label: "Jerusalem", y: 31 },
+    //                 { label: "Tizinabi", y: 7 },
+    //                 { label: "Twitter", y: 7 },
+    //                 { label: "Facebook", y: 6 },
+    //             ]
+    //         }]
+    //     };
+    //
+    //     $("#chartContainer").CanvasJSChart(options);
+    // });
 
 
 

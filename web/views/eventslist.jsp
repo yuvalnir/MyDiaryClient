@@ -12,7 +12,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
 <head>
     <title>Title</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
@@ -20,22 +20,34 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('.deleteEvent').click(function(e) {
+            e.preventDefault()
+            console.log('deleteeeee>>>>>>')
+        })
 
-<div data-role="page" id="listOfEventsPage" >
-    <div data-role="header">
-        <h1>List of events</h1>
-    </div>
-    <div data-role="content"  style="background: url(background_main.png);
-        width: 400px;
-        margin: 0 auto;
+    })
+</script>
+
+<div data-role="page" id="listOfEventsPage" style="background: url(background_main.png);
         background-repeat:repeat-y;
         background-position:center center;
         background-attachment:scroll;
-        background-size:100% 100%;
+        background-size:100% 100%;">
+    <div data-role="header">
+        <h1>List of events</h1>
+    </div>
+    <div data-role="content"  style="
+        width: 400px;
+        margin: 0 auto;
+
         color: white;font-size: 15px;text-shadow: 2px 2px black;">
         <p class="mc-top-margin-1-5"><b>Want to add a new event?</b></p>
         <div id="addEvent">
@@ -48,6 +60,9 @@
             List<Event> events = (List<Event>)request.getAttribute("events");
             for (Event event : events) {%>
         <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
+            <a data-event-id="  <% event.getId(); %>  "  data-transition="pop" data-rel="dialog" class="updateEvent ui-icon-edit ui-btn-icon-notext" style="position: relative; left: 12px; top: 4px;"></a>
+            <a data-event-id="  <% event.getId(); %>  " class="deleteEvent ui-icon-delete ui-btn-icon-notext" style="position: relative; left: 40px; top: 4px"></a>
+
             <p><%="Title: " + event.getTitle() + "  Location: " + event.getLocation()%></p>
             <p><%="Date: " +event.getDate() + "  Starts: " + event.getStarts() + "  Ends: " + event.getEnds()%></p>
             <p><%="Note: " +event.getNote()%></p>
@@ -66,5 +81,16 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        $('.deleteEvent').click(function(e) {
+            e.preventDefault()
+            console.log('deleteeeee>>>>>>')
+        })
+
+    })
+</script>
+
 </body>
 </html>
