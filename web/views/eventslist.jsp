@@ -61,7 +61,7 @@
             <ul>
                 <li><a href="/MyDiary/controller/user/logout" data-icon="home">Log Out</a></li>
                 <li><a href="/MyDiary/controller/events/eventslist" data-icon="calendar">All Events</a></li>
-                <li><a href="/MyDiary/views/usabilitygraph.jsp" data-icon="eye">Graph</a></li>
+                <li><a href="/MyDiary/controller/user/usabilitygraph" data-icon="eye">Graph</a></li>
             </ul>
         </div>
     </div>
