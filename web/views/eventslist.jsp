@@ -1,13 +1,16 @@
-<%@ page import="com.google.gson.Gson" %>
 <%@ page import="il.ac.hit.mvc.utils.Event" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.google.gson.stream.JsonReader" %>
 <%@ page import="com.google.gson.reflect.TypeToken" %>
 <%@ page import="java.lang.reflect.Type" %>
-<%@ page import="com.google.gson.JsonElement" %>
-<%@ page import="com.google.gson.JsonObject" %>
-<%@ page import="com.google.gson.JsonArray" %>
-<%@ page import="java.util.HashMap" %><%--
+<%@ page import="java.util.HashMap" %>
+<%@ page import="com.google.gson.*" %>
+
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="il.ac.hit.mvc.utils.GsonDateDeSerializer" %>
+<%@page import="java.sql.Date" %>
+<%@ page import="java.time.LocalDate" %>
+<%@ page import="il.ac.hit.mvc.utils.GsonLocalDateAdapter" %><%--
   Created by IntelliJ IDEA.
   User: yuval
   Date: 14/07/2020
@@ -23,17 +26,18 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-
 
 <div data-role="page" id="listOfEventsPage" >
     <div data-role="header">
         <h1>List of events</h1>
     </div>
     <div data-role="content"  style="background: url(background_main.png);
+        width: 400px;
+        margin: 0 auto;
         background-repeat:repeat-y;
         background-position:center center;
         background-attachment:scroll;
@@ -45,16 +49,24 @@
                data-rel="dialog" data-icon="plus" data-role="button">Add Event</a>
         </div>
         <div id="eventsContainer"></div>
-        <%
-            Gson gson = new Gson();
-            String jsonEvent = (String) request.getAttribute("events");
-            List events = gson.fromJson(jsonEvent, List.class);
 
-            for (Object event : events) {%>
+           <% String jsonEvent = (String) request.getAttribute("events");
+            Gson gson=new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
+
+            Type listType = new TypeToken<List<Event>>(){}.getType();
+            List<Event> events = gson.fromJson(jsonEvent, listType);
+               for (Event event : events) {%>
         <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
-        <p><%=event.toString()%></p>
+            <p><%=event.getEmail()%></p>
+            <p><%=event.getTitle()%></p>
+            <p><%=event.getLocation()%></p>
+            <p><%=event.getDate()%></p>
+            <p><%=event.getStarts()%></p>
+            <p><%=event.getEnds()%></p>
+            <p><%=event.getNote()%></p>
         </div>
         <% } %>
+        </div>
     </div>
 
     <div data-role="footer" data-position="fixed">

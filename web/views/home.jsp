@@ -33,7 +33,7 @@
     </div>
     <div data-role="content" style="width: 400px; margin: 0 auto;">
         <h1 class="header" style="text-align: center;">Welcome to your</br>diary!</h1>
-        <div>
+        <div style="width: 400px; margin: 0 auto;">
             <p class="mc-top-margin-1-5" ><b>Existing Users</b></p>
 
             <form method="post" action="/MyDiary/controller/user/login">
