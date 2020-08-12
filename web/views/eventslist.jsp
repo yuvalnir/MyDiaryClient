@@ -44,31 +44,27 @@
         </div>
         <div id="eventsContainer"></div>
 
-           <%
+        <%
             List<Event> events = (List<Event>)request.getAttribute("events");
-               for (Event event : events) {%>
+            for (Event event : events) {%>
         <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
-            <p><%=event.getTitle()%></p>
-            <p><%=event.getLocation()%></p>
-            <p><%=event.getDate()%></p>
-            <p><%=event.getStarts()%></p>
-            <p><%=event.getEnds()%></p>
-            <p><%=event.getNote()%></p>
+            <p><%="Title: " + event.getTitle() + "  Location: " + event.getLocation()%></p>
+            <p><%="Date: " +event.getDate() + "  Starts: " + event.getStarts() + "  Ends: " + event.getEnds()%></p>
+            <p><%="Note: " +event.getNote()%></p>
         </div>
         <% } %>
-        </div>
+    </div>
 
 
     <div data-role="footer" data-position="fixed">
         <div data-role="navbar">
             <ul>
-                <li><a href="/MyDiary/views/home.jsp" data-icon="home">Log Out</a></li>
-                <li><a href="/MyDiary/views/eventslist.jsp" data-icon="calendar">All Events</a></li>
+                <li><a href="/MyDiary/controller/user/logout" data-icon="home">Log Out</a></li>
+                <li><a href="/MyDiary/controller/events/eventslist" data-icon="calendar">All Events</a></li>
                 <li><a href="/MyDiary/views/usabilitygraph.jsp" data-icon="eye">Graph</a></li>
             </ul>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

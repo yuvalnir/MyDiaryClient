@@ -1,10 +1,9 @@
 .ui-page.ui-body-c {
     background: url(background_blue.jpeg);
-    height: 100%;
-    background-repeat:no-repeat;
-    background-position:center;
+    background-repeat:repeat-y;
+    background-position:center center;
     background-attachment:scroll;
-    background-size:cover;
+    background-size:100% 100%;
 }
 
 .ui-footer {
@@ -13,6 +12,10 @@
 }
 
 * {
-font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Montserrat', regular;
 }
 
+.page-footer {
+    height: 22%;
+}

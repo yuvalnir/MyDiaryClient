@@ -13,7 +13,10 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EventsService {
 
@@ -34,9 +37,6 @@ public class EventsService {
         try {
             userEventsResponse = client.send(userRequest, HttpResponse.BodyHandlers.ofString());
             System.out.println(userEventsResponse.toString()); //remove later
-/*            Gson gson = new Gson();
-            JsonObject convertedObject = new Gson().fromJson(userResponse.body(), JsonObject.class);*/
-
             System.out.println(userEventsResponse.body()); //remove later
         } catch (InterruptedException | IOException e) {
             System.out.println("Something went wrong with sending request...");
@@ -49,4 +49,20 @@ public class EventsService {
         return events;
     }
 
+    public Map<String, Integer> getEventsByLocation (List<Event> events) {
+
+        HashMap<String, Integer> eventsLocationCounter = new HashMap<>();
+
+        for (Event event : events) {
+            String eventLocation = event.getLocation();
+            if (eventsLocationCounter.containsKey(eventLocation)) {
+                Integer locationCount = eventsLocationCounter.get(eventLocation);
+                eventsLocationCounter.put(eventLocation, locationCount++);
+            } else {
+                eventsLocationCounter.put(eventLocation, 1);
+            }
+        }
+
+        return eventsLocationCounter;
+    }
 }

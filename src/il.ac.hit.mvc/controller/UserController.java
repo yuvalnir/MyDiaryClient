@@ -16,7 +16,9 @@ import java.net.URISyntaxException;
 import java.net.http.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class UserController {
 
@@ -47,12 +49,10 @@ public class UserController {
 
         // redirecting to jsp page
         if (userResponse.statusCode() == 200) {
-
             request.getSession().setAttribute("email", email);
             request.getSession().setAttribute("password", password);
 
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
-
             request.setAttribute("events", eventsService.fetchEvents(email, password));
             dispatcher.forward(request, response);
         } else if (userResponse.statusCode() >= 400 && userResponse.statusCode() >= 499) {
@@ -61,7 +61,7 @@ public class UserController {
         }
     }
 
-    public void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
+    public void signup(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
         JsonObject userJson = new JsonObject();
         userJson.add("email", JsonParser.parseString(request.getParameter("email")));
         userJson.add("password", JsonParser.parseString(request.getParameter("password")));
@@ -99,7 +99,7 @@ public class UserController {
         }
     }
 
-    public void addevent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
+    public void addevent(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
 
         JsonObject jsonObject = new JsonObject();
         JsonArray jsonEvent = new JsonArray();
@@ -137,6 +137,11 @@ public class UserController {
 
         // redirecting to jsp page
         if(userResponse.statusCode() == 200) {
+            String email = (String) request.getSession().getAttribute("email");
+            String password = (String) request.getSession().getAttribute("password");
+            List<Event> events = eventsService.fetchEvents(email, password);
+            request.setAttribute("events", events);
+            //response.sendRedirect("/MyDiary/views/eventslist.jsp");
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -145,14 +150,60 @@ public class UserController {
         }
     }
 
+    public void usabilitygraph(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
 
-    public void usabilitygraph(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/usabilitygraph.jsp");
-        //dispatcher.forward(request, response);
+        String email = ((String) request.getSession().getAttribute("email"));
+        String password = ((String) request.getSession().getAttribute("password"));
+
+        List<Event> events = eventsService.fetchEvents(email, password);
+        Map<String, Integer> locationList = eventsService.getEventsByLocation(events);
+
+        request.setAttribute("locationList", locationList);
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/usabilitygraph.jsp");
+        dispatcher.forward(request, response);
     }
 
-    public void usersettings(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/usersettings.jsp");
-        //dispatcher.forward(request, response);
+    public void deleteuser(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.add("email", JsonParser.parseString((String) request.getSession().getAttribute("email")));
+        jsonObject.add("password", JsonParser.parseString((String) request.getSession().getAttribute("password")));
+
+
+        HttpRequest userRequest = HttpRequest.newBuilder(new URI("http://localhost:8080/mydiary/api/user/delete"))
+                .headers("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
+                .build();
+
+        HttpClient client = HttpClient.newBuilder().build();
+        HttpResponse<Void> userResponse = null;
+        try {
+            userResponse = client.send(userRequest, HttpResponse.BodyHandlers.discarding()); //might be HttpResponse.BodyHandlers.ofInputStream()
+        } catch (InterruptedException e) {
+            System.out.println("Something went wrong with sending request...");
+            e.printStackTrace();
+        }
+
+        if(userResponse.statusCode() == 200) {
+            //deleting logged in user from the session
+            HttpSession session = request.getSession(false);
+            if(session!=null)
+                session.invalidate();
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/home.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            //in case delete user didn't succeed
+            System.out.println("Something went wrong with deleting the user...");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/error.jsp");
+            dispatcher.forward(request, response);
+        }
+    }
+
+    public void logout(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if(session!=null)
+            session.invalidate();
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/home.jsp");
+        dispatcher.forward(request, response);
     }
 }
