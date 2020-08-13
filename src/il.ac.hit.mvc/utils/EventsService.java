@@ -65,7 +65,8 @@ public class EventsService {
             String eventLocation = event.getLocation();
             if (eventsLocationCounter.containsKey(eventLocation)) {
                 Integer locationCount = eventsLocationCounter.get(eventLocation);
-                eventsLocationCounter.put(eventLocation, locationCount++);
+                locationCount++;
+                eventsLocationCounter.put(eventLocation, locationCount);
             } else {
                 eventsLocationCounter.put(eventLocation, 1);
             }
