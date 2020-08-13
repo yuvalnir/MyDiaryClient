@@ -99,57 +99,6 @@ public class UserController {
         }
     }
 
-    public void addevent(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
-        JsonObject jsonObject = new JsonObject();
-        JsonArray jsonEvent = new JsonArray();
-
-        jsonEvent.add(JsonParser.parseString((String) request.getSession().getAttribute("email")));
-        jsonEvent.add(1); //event id
-        jsonEvent.add(request.getParameter("title"));
-        jsonEvent.add(request.getParameter("location"));
-        jsonEvent.add(request.getParameter("timeStart") + ":00");
-        jsonEvent.add(request.getParameter("timeEnd") + ":00");
-        jsonEvent.add(request.getParameter("date"));
-        jsonEvent.add(request.getParameter("note"));
-
-        jsonObject.add("email", JsonParser.parseString((String) request.getSession().getAttribute("email")));
-        jsonObject.add("password", JsonParser.parseString((String) request.getSession().getAttribute("password")));
-        jsonObject.add("event", jsonEvent);
-
-        System.out.println("Add Event String: "+ jsonObject.toString()); //remove later
-
-        HttpRequest userRequest = HttpRequest.newBuilder(new URI("http://localhost:8080/mydiary/api/event/new"))
-                .headers("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(jsonObject.toString()))
-                .build();
-
-        HttpClient client = HttpClient.newBuilder().build();
-        HttpResponse<Void> userResponse = null;
-        try {
-            userResponse = client.send(userRequest, HttpResponse.BodyHandlers.discarding());
-            System.out.println(userResponse.toString()); //remove later
-            System.out.println(userResponse.body()); //remove later
-        } catch (InterruptedException e) {
-            System.out.println("Something went wrong with sending request...");
-            e.printStackTrace();
-        }
-
-        // redirecting to jsp page
-        if(userResponse.statusCode() == 200) {
-            String email = (String) request.getSession().getAttribute("email");
-            String password = (String) request.getSession().getAttribute("password");
-            List<Event> events = eventsService.fetchEvents(email, password);
-            request.setAttribute("events", events);
-            //response.sendRedirect("/MyDiary/views/eventslist.jsp");
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/eventslist.jsp");
-            dispatcher.forward(request, response);
-        } else {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/error.jsp");
-            dispatcher.forward(request, response);
-        }
-    }
-
     public void usabilitygraph(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
 
         String email = ((String) request.getSession().getAttribute("email"));

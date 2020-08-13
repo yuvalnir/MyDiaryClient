@@ -1,9 +1,5 @@
 <%@ page import="il.ac.hit.mvc.utils.Event" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.google.gson.reflect.TypeToken" %>
-<%@ page import="java.lang.reflect.Type" %>
-<%@ page import="com.google.gson.*" %>
-<%@ page import="il.ac.hit.mvc.controller.UserController" %>
 <%--
   Created by IntelliJ IDEA.
   User: yuval
@@ -26,15 +22,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script type="text/javascript">
-    $(document).ready(function (){
-        $('.deleteEvent').click(function(e) {
-            e.preventDefault()
-            console.log('deleteeeee>>>>>>')
-        })
-
-    })
-</script>
 
 <div data-role="page" id="listOfEventsPage" style="background: url(background_main.png);
         background-repeat:repeat-y;
@@ -60,12 +47,18 @@
             List<Event> events = (List<Event>)request.getAttribute("events");
             for (Event event : events) {%>
         <div class="event" style="padding: 10px; margin-top: 10px; background-color: white;">
-            <a data-event-id="  <% event.getId(); %>  "  data-transition="pop" data-rel="dialog" class="updateEvent ui-icon-edit ui-btn-icon-notext" style="position: relative; left: 12px; top: 4px;"></a>
-            <a data-event-id="  <% event.getId(); %>  " class="deleteEvent ui-icon-delete ui-btn-icon-notext" style="position: relative; left: 40px; top: 4px"></a>
-
             <p><%="Title: " + event.getTitle() + "  Location: " + event.getLocation()%></p>
             <p><%="Date: " +event.getDate() + "  Starts: " + event.getStarts() + "  Ends: " + event.getEnds()%></p>
             <p><%="Note: " +event.getNote()%></p>
+
+    <form id="deleteForm" method="post" action="/MyDiary/controller/events/deleteevent">
+        <input type="hidden" name="eventid" id="eventid" value="<%=event.getId()%>">
+        <input type="submit" value="Delete">
+    </form>
+    <form id="updateForm" method="post" action="/MyDiary/controller/events/getupdateeventpage">
+        <input type="hidden" name="eventid" id="eventid2" value="<%=event.getId()%>">
+        <input type="submit" value="Update">
+    </form>
         </div>
         <% } %>
     </div>
@@ -81,16 +74,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function (){
-        $('.deleteEvent').click(function(e) {
-            e.preventDefault()
-            console.log('deleteeeee>>>>>>')
-        })
-
-    })
-</script>
 
 </body>
 </html>

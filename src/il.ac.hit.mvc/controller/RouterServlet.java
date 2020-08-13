@@ -1,4 +1,4 @@
-    package il.ac.hit.mvc.controller;
+package il.ac.hit.mvc.controller;
 
     import il.ac.hit.mvc.utils.Settings;
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="com.google.gson.Gson"%>
-<%@ page import="com.google.gson.JsonObject"%>
 
 <%
     Gson gsonObj = new Gson();
@@ -31,7 +30,9 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <link rel="stylesheet" href="style.css">
+
     <script type="text/javascript">
         window.onload = function() {
 
@@ -53,9 +54,9 @@
                 }]
             });
             chart.render();
-
         }
     </script>
+
 </head>
 <body>
 <h1>Statistics by Location</h1>
@@ -73,7 +74,16 @@
         <div id="chartContainer" data-role="content" style="height: 400px; width: 96%;"></div>
     </div>
 
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="/MyDiary/controller/user/logout" data-icon="home">Log Out</a></li>
+                <li><a href="/MyDiary/controller/events/eventslist" data-icon="calendar">All Events</a></li>
+                <li><a href="/MyDiary/controller/user/usabilitygraph" data-icon="eye">Graph</a></li>
+            </ul>
+        </div>
+    </div>
+
 </div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>
