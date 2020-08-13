@@ -39,7 +39,7 @@
         <p class="mc-top-margin-1-5"><b>Want to add a new event?</b></p>
         <div id="addEvent">
             <a href="/MyDiary/views/addevent.jsp" data-transition="pop"
-               data-rel="dialog" data-icon="plus" data-role="button">Add Event</a>
+               data-rel="external" data-icon="plus" data-role="button">Add Event</a>
         </div>
         <div id="eventsContainer"></div>
 

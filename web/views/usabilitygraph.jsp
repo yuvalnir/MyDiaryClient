@@ -7,15 +7,16 @@
     Map<Object,Object> map = null;
     List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
 
-    map = new HashMap<Object,Object>(); map.put("label", "Australia"); map.put("y", 81000); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "China"); map.put("y", 47000); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "Brazil"); map.put("y", 32500); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "Guinea"); map.put("y", 19300); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "India"); map.put("y", 19000); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "Jamaica"); map.put("y", 9800); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "Kazakhstan"); map.put("y", 5500); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "Russia"); map.put("y", 5300); list.add(map);
-    map = new HashMap<Object,Object>(); map.put("label", "Others"); map.put("y", 15060); list.add(map);
+    //Map<String, Integer> locationList = new HashMap<String, Integer>();
+    //locationList.putAll((Map<String, Integer>)request.getSession().getAttribute("locationList"));
+    Map<String, Integer> locationList = (Map<String, Integer>) request.getAttribute("locationList");
+
+    for (String location : locationList.keySet()) {
+        map = new HashMap<Object,Object>();
+        map.put("label", location);
+        map.put("y", locationList.get(location));
+        list.add(map);
+    }
 
     String dataPoints = gsonObj.toJson(list);
 %>
@@ -40,16 +41,13 @@
                 animationEnabled: true,
                 theme: "light2",
                 title: {
-                    text: "World Bauxite Production"
+                    text: "Events by Location Graph"
                 },
-                subtitles: [{
-                    text: "in tonnes"
-                }],
                 data: [{
                     type: "doughnut",
                     yValueFormatString: "#,##0",
-                    indexLabel: "{label}: {y}K",
-                    toolTipContent: "{y}K tonnes",
+                    indexLabel: "{label}: {y}",
+                    toolTipContent: "{y}",
                     dataPoints : <%=dataPoints%>
                 }]
             });
@@ -59,7 +57,6 @@
 
 </head>
 <body>
-<h1>Statistics by Location</h1>
 
 <div data-role="page" id="graphPage" style="background: url(background_main.png);
             background-repeat:repeat-y;

@@ -21,10 +21,16 @@ import java.util.List;
 import java.util.Map;
 
 public class UserController {
-
+    /**
+     * responsible for the user side method and communicating with the server
+     */
     private EventsService eventsService = new EventsService();
 
-    public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, URISyntaxException {
+    public void login(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
+        /**
+         * function that is responsible to check the login cerdentials that was enterd in the browser
+         * and login the user if they are correct
+         */
         JsonObject userJson = new JsonObject();
 
         String email = request.getParameter("email");
@@ -62,6 +68,9 @@ public class UserController {
     }
 
     public void signup(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
+        /**
+         * function that is responsible to sign new user to the system
+         */
         JsonObject userJson = new JsonObject();
         userJson.add("email", JsonParser.parseString(request.getParameter("email")));
         userJson.add("password", JsonParser.parseString(request.getParameter("password")));
@@ -100,20 +109,27 @@ public class UserController {
     }
 
     public void usabilitygraph(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
+        /**
+        * function that is responsible to get the location information
+         * of the events and send it to the usabilitygraph.jsp page
+        */
         String email = ((String) request.getSession().getAttribute("email"));
         String password = ((String) request.getSession().getAttribute("password"));
 
         List<Event> events = eventsService.fetchEvents(email, password);
         Map<String, Integer> locationList = eventsService.getEventsByLocation(events);
 
+        request.getSession().setAttribute("locationList", locationList);
         request.setAttribute("locationList", locationList);
         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/views/usabilitygraph.jsp");
         dispatcher.forward(request, response);
     }
 
+    //for future use
     public void deleteuser(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
+        /**
+         * function that is responsible to deleting the user and all his events from the DB
+         */
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("email", JsonParser.parseString((String) request.getSession().getAttribute("email")));
         jsonObject.add("password", JsonParser.parseString((String) request.getSession().getAttribute("password")));
@@ -149,6 +165,9 @@ public class UserController {
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException {
+        /**
+         * function that is responsible to log the current user out of the system
+         */
         HttpSession session = request.getSession(false);
         if(session!=null)
             session.invalidate();

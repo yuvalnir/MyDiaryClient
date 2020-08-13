@@ -53,6 +53,7 @@
             <input type="hidden" name="eventid" id="eventid" value="<%=events.get(0).getId()%>">
             <input type="submit" value="Update Event">
         </form>
+        <a href="/MyDiary/controller/events/eventslist" data-role="button" data-icon="back" style="width: 400px; margin: 0 auto;">Back</a>
     </div>
 </div>
 

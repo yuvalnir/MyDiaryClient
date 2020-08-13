@@ -19,11 +19,15 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 public class EventsController {
-
+    /**
+     * responsible for the events side method and communicating with the server
+     */
     private EventsService eventsService = new EventsService();
 
     public void addevent(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
+        /**
+        * Adding new event to the DB
+        */
         JsonObject jsonObject = new JsonObject();
         JsonArray jsonEvent = new JsonArray();
 
@@ -74,6 +78,9 @@ public class EventsController {
     }
 
     public void eventslist(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
+        /**
+         * sends eventslist.jsp page list of events that fetchEvents returns
+         */
         String email = ((String) request.getSession().getAttribute("email"));
         String password = ((String) request.getSession().getAttribute("password"));
 
@@ -85,7 +92,9 @@ public class EventsController {
     }
 
     public void deleteevent(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
+        /**
+         *  deleting a desired events that the user choose in the display by using the event id
+         */
         JsonObject jsonObject = new JsonObject();
         JsonArray jsonArray = new JsonArray();
 
@@ -127,7 +136,9 @@ public class EventsController {
     }
 
     public void getupdateeventpage(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
+        /**
+        * getting a specific event from the DB by event id and sending it to update event.jsp page
+        */
         JsonObject jsonObject = new JsonObject();
         JsonArray jsonArray = new JsonArray();
 
@@ -170,7 +181,9 @@ public class EventsController {
     }
 
     public void updateevent(HttpServletRequest request, HttpServletResponse response) throws MVCException, ServletException, IOException, URISyntaxException {
-
+        /**
+         * getting the updated event information and sending it to the DB for it to be updated
+         */
         JsonObject jsonObject = new JsonObject();
         JsonArray jsonEvent = new JsonArray();
 

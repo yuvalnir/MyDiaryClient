@@ -16,12 +16,17 @@ package il.ac.hit.mvc.controller;
     @WebServlet(name = "RouterServlet", urlPatterns = {"/controller/*", "/site/*"})
 
     public class RouterServlet extends HttpServlet {
-
+        /**
+         * responsible for rediracting the get/post requests urls to the wright page/method
+         */
         public  RouterServlet() {
             super();
         }
 
          protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+             /**
+              * responsible to route the different url's to the wright functions or pages
+              */
              try {
                  String requestURI = request.getRequestURI();
 
@@ -66,6 +71,9 @@ package il.ac.hit.mvc.controller;
         }
 
         private void serveJSPPageFromURL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            /**
+             * serving the jsp page to the web browser
+             */
             response.setContentType("text/html");
             String view = getJSPPageFromURL(request.getRequestURI());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/" + view.toLowerCase() + ".jsp");
@@ -73,20 +81,32 @@ package il.ac.hit.mvc.controller;
         }
 
         private boolean isJSPPageRequest(String requestUrl) {
+            /**
+             * checks if the url directs to a method or a jsp page
+             */
             return getJSPPageFromURL(requestUrl).equals("site");
         }
 
         private String getJSPPageFromURL(String requestUrl) {
+            /**
+             * getting the name of the jsp page from the url
+             */
             String[] URLParts = requestUrl.split("/");
             return URLParts[3];
         }
 
         private String getActionFromURL(String requestUrl) {
+            /**
+             * gets the method name that needs to be activated from the url
+             */
             String[] URLParts = requestUrl.split("/");
             return URLParts[4];
         }
 
         private String createControllerNameFromRoute(String requestUrl) {
+            /**
+             * activating the reflection, and generating a the controller name
+             */
             String[] URLParts = requestUrl.split("/");
             String controllerPrefix = URLParts[3];
             String temp = controllerPrefix + "Controller";

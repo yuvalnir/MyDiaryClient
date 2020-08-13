@@ -46,6 +46,7 @@
             <input type="text" name="note" style="height:60px;" id="note"/>
             <input type="submit" value="Add Event">
         </form>
+            <a href="/MyDiary/controller/events/eventslist" data-role="button" data-icon="back" style="width: 400px; margin: 0 auto;">Back</a>
     </div>
 </div>
 

@@ -1,7 +1,9 @@
 package il.ac.hit.mvc.controller;
 
 public class MVCException extends RuntimeException{
-
+    /**
+     * MVCException class to throw uniq exceptions
+     */
     public MVCException() {
     }
 

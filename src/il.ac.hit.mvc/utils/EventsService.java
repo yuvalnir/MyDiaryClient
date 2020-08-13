@@ -13,16 +13,20 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class EventsService {
-
+    /**
+     * provides several methods for the eventsController
+     */
     private Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
 
     public List<Event> fetchEvents(String email, String password) throws URISyntaxException {
+        /**
+         * gets user events from the DB returns List<Event>
+         */
         JsonObject jsonObject = new JsonObject();
         jsonObject.add("email", JsonParser.parseString(email));
         jsonObject.add("password", JsonParser.parseString(password));
@@ -50,6 +54,10 @@ public class EventsService {
     }
 
     public Map<String, Integer> getEventsByLocation (List<Event> events) {
+        /**
+         * gets all the user events and returns a HashMap<String, Integer>
+         * of the location and the number of times it appears in all the user events
+         */
 
         HashMap<String, Integer> eventsLocationCounter = new HashMap<>();
 
